@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>编程羊毛导航 · Coding Plan & 免费额度雷达</title>
+<meta name="description" content="聚合市面上 AI 编程工具的 Coding Plan、免费额度与限时优惠，一键跳转领取，支持查询更新、优惠力度统计与方案对比。">
+<style>
+  :root {
+    --bg: #0b0e14; --bg-soft: #10141d; --card: #141926; --card-hover: #1a2032;
+    --border: rgba(255,255,255,.08); --border-strong: rgba(255,255,255,.14);
+    --text: #e6eaf2; --text-dim: #9aa3b5; --text-faint: #6b7385;
+    --accent: #34d399; --accent2: #818cf8; --amber: #fbbf24; --danger: #f87171;
+    --mark: rgba(52,211,153,.28); --chip: rgba(255,255,255,.05); --chip-on: rgba(52,211,153,.16);
+    --shadow: 0 8px 28px rgba(0,0,0,.35);
+    --grad: linear-gradient(90deg,#34d399,#60a5fa 55%,#a78bfa);
+  }
+  [data-theme="light"] {
+    --bg: #f6f7fb; --bg-soft: #eef0f7; --card: #ffffff; --card-hover: #ffffff;
+    --border: rgba(15,23,42,.09); --border-strong: rgba(15,23,42,.18);
+    --text: #17203a; --text-dim: #55607a; --text-faint: #8b93a8;
+    --mark: rgba(52,211,153,.35); --chip: rgba(15,23,42,.05); --chip-on: rgba(16,163,110,.14);
+    --shadow: 0 8px 24px rgba(15,23,42,.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+    font-size: 15px; line-height: 1.6; min-height: 100vh;
+    background-image: radial-gradient(1200px 500px at 80% -10%, rgba(129,140,248,.10), transparent 60%),
+                      radial-gradient(900px 420px at 5% -5%, rgba(52,211,153,.09), transparent 60%);
+    background-attachment: fixed;
+  }
+  ::selection { background: var(--mark); }
+  a { color: inherit; text-decoration: none; }
+  mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 1px; }
+
+  /* ---------- 顶栏 ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-in {
+    max-width: 1240px; margin: 0 auto; padding: 14px 20px;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .logo .sheep { font-size: 26px; filter: drop-shadow(0 0 10px rgba(52,211,153,.4)); }
+  .logo b { font-size: 18px; letter-spacing: .5px; }
+  .logo .sub { font-size: 11px; color: var(--text-faint); display: block; margin-top: -3px; letter-spacing: 1px; }
+  .search-wrap { flex: 1; min-width: 240px; position: relative; }
+  .search-wrap svg { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--text-faint); }
+  #search {
+    width: 100%; padding: 11px 76px 11px 38px; border-radius: 12px;
+    border: 1px solid var(--border-strong); background: var(--card); color: var(--text);
+    font-size: 14px; outline: none; transition: border .2s, box-shadow .2s;
+  }
+  #search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(52,211,153,.15); }
+  #search::placeholder { color: var(--text-faint); }
+  .kbd-hint {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    font-size: 11px; color: var(--text-faint); border: 1px solid var(--border-strong);
+    border-radius: 5px; padding: 1px 7px; background: var(--chip);
+  }
+  .icon-btn {
+    display: inline-flex; align-items: center; gap: 6px; cursor: pointer; flex-shrink: 0;
+    padding: 9px 14px; border-radius: 11px; border: 1px solid var(--border-strong);
+    background: var(--card); color: var(--text-dim); font-size: 13px; transition: all .2s;
+  }
+  .icon-btn:hover { color: var(--text); border-color: var(--accent); transform: translateY(-1px); }
+  .icon-btn:disabled { opacity: .55; cursor: wait; transform: none; }
+  .spin { display: inline-block; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- 统计条 ---------- */
+  .stats {
+    max-width: 1240px; margin: 22px auto 0; padding: 0 20px;
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  .stat {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 10px 18px; display: flex; align-items: baseline; gap: 8px; cursor: default;
+  }
+  .stat b { font-size: 20px; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stat span { font-size: 12px; color: var(--text-dim); }
+
+  /* ---------- 筛选 ---------- */
+  .filters {
+    max-width: 1240px; margin: 16px auto 0; padding: 0 20px;
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  }
+  .divider { width: 1px; height: 20px; background: var(--border-strong); margin: 0 4px; }
+  .chip {
+    cursor: pointer; user-select: none; padding: 6px 14px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--chip); color: var(--text-dim);
+    font-size: 13px; transition: all .18s;
+  }
+  .chip:hover { color: var(--text); border-color: var(--border-strong); }
+  .chip.on { background: var(--chip-on); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  select.chip { appearance: none; padding-right: 10px; }
+  select.chip option { background: var(--card); color: var(--text); }
+  .result-line {
+    max-width: 1240px; margin: 14px auto 0; padding: 0 20px;
+    font-size: 12.5px; color: var(--text-faint);
+  }
+
+  /* ---------- 卡片网格 ---------- */
+  main { max-width: 1240px; margin: 14px auto 0; padding: 0 20px 90px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(305px, 1fr)); gap: 16px; }
+  .card {
+    display: flex; flex-direction: column; gap: 10px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+    padding: 18px; position: relative; overflow: hidden;
+    transition: transform .2s, border-color .2s, background .2s, box-shadow .2s;
+  }
+  .card:hover {
+    transform: translateY(-3px); border-color: var(--border-strong);
+    background: var(--card-hover); box-shadow: var(--shadow);
+  }
+  .card::before {
+    content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
+    background: var(--grad); opacity: 0; transition: opacity .2s;
+  }
+  .card:hover::before { opacity: 1; }
+  .card.hot-card { border-color: color-mix(in srgb, var(--amber) 35%, var(--border)); }
+  .card.picked { border-color: var(--accent2); box-shadow: 0 0 0 1px var(--accent2) inset; }
+  .c-head { display: flex; align-items: center; gap: 11px; }
+  .avatar {
+    width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 17px; color: #0b0e14;
+  }
+  .c-title { min-width: 0; flex: 1; }
+  .c-title b { display: block; font-size: 15.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .c-title span { font-size: 12px; color: var(--text-faint); }
+  .pick-box {
+    display: flex; align-items: center; gap: 5px; flex-shrink: 0; cursor: pointer;
+    font-size: 11.5px; color: var(--text-faint); border: 1px solid var(--border-strong);
+    border-radius: 8px; padding: 4px 9px; transition: all .18s; user-select: none;
+  }
+  .pick-box:hover { color: var(--accent2); border-color: var(--accent2); }
+  .pick-box.on { color: #fff; background: var(--accent2); border-color: var(--accent2); font-weight: 600; }
+  .badges { display: flex; gap: 6px; flex-wrap: wrap; }
+  .badge {
+    font-size: 11px; padding: 2px 9px; border-radius: 999px;
+    border: 1px solid var(--border-strong); color: var(--text-dim); white-space: nowrap;
+  }
+  .badge.cat-plan   { color: #a78bfa; border-color: rgba(167,139,250,.4); }
+  .badge.cat-ide    { color: #60a5fa; border-color: rgba(96,165,250,.4); }
+  .badge.cat-cli    { color: #22d3ee; border-color: rgba(34,211,238,.4); }
+  .badge.cat-api    { color: #34d399; border-color: rgba(52,211,153,.4); }
+  .badge.cat-builder{ color: #fb923c; border-color: rgba(251,146,60,.4); }
+  .badge.cat-student{ color: #f472b6; border-color: rgba(244,114,182,.4); }
+  .badge.hot { color: var(--amber); border-color: rgba(251,191,36,.45); background: rgba(251,191,36,.08); }
+  .stars { font-size: 13px; letter-spacing: 2px; color: var(--amber); white-space: nowrap; }
+  .stars i { font-style: normal; color: var(--text-faint); }
+  .promo {
+    display: flex; gap: 8px; align-items: baseline;
+    background: rgba(251,191,36,.09); border: 1px solid rgba(251,191,36,.35);
+    color: var(--amber); border-radius: 10px; padding: 8px 12px; font-size: 12.5px;
+  }
+  .free-box { font-size: 13.5px; color: var(--text-dim); }
+  .free-box b { color: var(--accent); font-size: 12px; margin-right: 6px; border: 1px solid rgba(52,211,153,.4); border-radius: 5px; padding: 0 6px; }
+  .price { font-size: 12.5px; color: var(--text-faint); }
+  .price b { color: var(--text-dim); font-weight: 600; }
+  .score-line { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--text-faint); }
+  .score-bar { flex: 1; height: 5px; border-radius: 3px; background: var(--chip); overflow: hidden; }
+  .score-bar i { display: block; height: 100%; background: var(--grad); border-radius: 3px; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { font-size: 11px; color: var(--text-faint); background: var(--chip); border-radius: 6px; padding: 2px 8px; }
+  .note { font-size: 12px; color: var(--text-faint); border-left: 2px solid var(--border-strong); padding-left: 9px; }
+  .c-foot { margin-top: auto; display: flex; gap: 8px; align-items: center; padding-top: 4px; }
+  .btn-go {
+    flex: 1; text-align: center; padding: 9px 0; border-radius: 10px;
+    background: var(--grad); color: #07110c; font-weight: 700; font-size: 13.5px;
+    transition: transform .15s, box-shadow .2s; box-shadow: 0 2px 12px rgba(52,211,153,.22);
+  }
+  .btn-go:hover { transform: translateY(-1px); box-shadow: 0 4px 18px rgba(52,211,153,.4); }
+  .btn-home {
+    padding: 9px 13px; border-radius: 10px; border: 1px solid var(--border-strong);
+    color: var(--text-dim); font-size: 12.5px; transition: all .2s;
+  }
+  .btn-home:hover { color: var(--text); border-color: var(--accent); }
+  .checked { font-size: 11px; color: var(--text-faint); opacity: .8; }
+
+  /* ---------- 空状态 ---------- */
+  .empty { text-align: center; padding: 70px 20px; color: var(--text-faint); display: none; }
+  .empty .face { font-size: 44px; display: block; margin-bottom: 12px; }
+  .empty button {
+    margin-top: 16px; cursor: pointer; padding: 8px 22px; border-radius: 10px;
+    border: 1px solid var(--accent); background: transparent; color: var(--accent); font-size: 13px;
+  }
+
+  /* ---------- 弹窗 ---------- */
+  dialog {
+    margin: auto; /* 全局 * { margin:0 } 会覆盖 UA 默认居中，需显式恢复 */
+    border: 1px solid var(--border-strong); border-radius: 18px; padding: 0;
+    background: var(--card); color: var(--text); width: min(680px, 94vw);
+    max-height: 88vh; box-shadow: var(--shadow);
+  }
+  dialog::backdrop { background: rgba(4,6,10,.6); backdrop-filter: blur(3px); }
+  .dlg-in { padding: 24px; }
+  .dlg-in h3 { font-size: 17px; margin-bottom: 4px; }
+  .dlg-in p.desc { font-size: 12.5px; color: var(--text-faint); margin-bottom: 16px; }
+  .dlg-row { display: flex; gap: 8px; margin-bottom: 10px; }
+  .dlg-row input {
+    flex: 1; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border-strong);
+    background: var(--bg-soft); color: var(--text); font-size: 13px; outline: none;
+  }
+  .dlg-row input:focus { border-color: var(--accent); }
+  .dlg-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .dlg-btns button {
+    cursor: pointer; padding: 9px 16px; border-radius: 10px; font-size: 13px;
+    border: 1px solid var(--border-strong); background: var(--chip); color: var(--text-dim);
+    transition: all .2s;
+  }
+  .dlg-btns button:hover { color: var(--text); border-color: var(--accent); }
+  .dlg-btns button.primary { background: var(--grad); color: #07110c; font-weight: 700; border: none; }
+  .dlg-status { margin-top: 12px; font-size: 12.5px; min-height: 18px; color: var(--text-faint); }
+  .dlg-status.ok { color: var(--accent); }
+  .dlg-status.err { color: var(--danger); }
+  .dlg-close-x {
+    float: right; cursor: pointer; border: none; background: none; color: var(--text-faint);
+    font-size: 18px; line-height: 1; padding: 2px 6px; border-radius: 6px;
+  }
+  .dlg-close-x:hover { color: var(--text); background: var(--chip); }
+
+  /* ---------- 统计图表 ---------- */
+  .ov-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .ov-chips .stat { padding: 7px 13px; } .ov-chips .stat b { font-size: 16px; }
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 620px) { .chart-grid { grid-template-columns: 1fr; } }
+  .chart-box h4 { font-size: 13px; color: var(--text-dim); margin-bottom: 10px; }
+  .hbar-row { display: grid; grid-template-columns: 88px 1fr 34px; gap: 8px; align-items: center; margin-bottom: 7px; font-size: 12px; }
+  .hbar-row .lbl { color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; }
+  .hbar-track { height: 10px; border-radius: 5px; background: var(--chip); overflow: hidden; }
+  .hbar-track i { display: block; height: 100%; border-radius: 5px; background: var(--grad); }
+  .hbar-row .num { color: var(--text-faint); font-variant-numeric: tabular-nums; }
+  .donut-wrap { display: flex; gap: 18px; align-items: center; }
+  .donut { width: 108px; height: 108px; border-radius: 50%; flex-shrink: 0; position: relative; }
+  .donut::after {
+    content: ""; position: absolute; inset: 22px; border-radius: 50%;
+    background: var(--card); border: 1px solid var(--border);
+  }
+  .donut b { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 1; font-size: 15px; }
+  .legend { font-size: 12px; color: var(--text-dim); display: flex; flex-direction: column; gap: 6px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; }
+  .chart-note { margin-top: 14px; font-size: 11.5px; color: var(--text-faint); }
+
+  /* ---------- 对比表 ---------- */
+  .cmp-wrap { overflow-x: auto; }
+  table.cmp { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+  table.cmp th, table.cmp td {
+    border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top;
+  }
+  table.cmp th { background: var(--bg-soft); color: var(--text-dim); font-weight: 600; white-space: nowrap; font-size: 12px; }
+  table.cmp td.dim { color: var(--text-dim); }
+  table.cmp .best { color: var(--accent); font-weight: 700; }
+  table.cmp .cmp-name b { font-size: 13.5px; }
+
+  /* ---------- 对比悬浮条 ---------- */
+  #cmp-bar {
+    position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%) translateY(90px);
+    display: flex; align-items: center; gap: 12px; z-index: 60;
+    background: var(--card); border: 1px solid var(--accent2); border-radius: 14px;
+    padding: 10px 16px; box-shadow: var(--shadow); transition: transform .3s; font-size: 13px;
+  }
+  #cmp-bar.show { transform: translateX(-50%) translateY(0); }
+  #cmp-bar .cnt { color: var(--text-dim); } #cmp-bar .cnt b { color: var(--accent2); }
+  #cmp-bar button {
+    cursor: pointer; border: none; border-radius: 9px; padding: 7px 15px; font-size: 12.5px;
+  }
+  #cmp-bar .go { background: linear-gradient(90deg,#818cf8,#60a5fa); color: #0a0f1e; font-weight: 700; }
+  #cmp-bar .go:disabled { opacity: .5; cursor: not-allowed; }
+  #cmp-bar .clr { background: var(--chip); color: var(--text-dim); border: 1px solid var(--border-strong); }
+
+  /* ---------- Toast ---------- */
+  #toast {
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: var(--card); border: 1px solid var(--accent); color: var(--text);
+    padding: 11px 22px; border-radius: 12px; font-size: 13.5px; z-index: 99;
+    opacity: 0; transition: all .3s; box-shadow: var(--shadow); pointer-events: none;
+    max-width: 90vw;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  footer {
+    border-top: 1px solid var(--border); padding: 26px 20px 34px;
+    text-align: center; font-size: 12px; color: var(--text-faint); line-height: 2;
+  }
+  footer .warn { color: var(--amber); }
+
+  @media (max-width: 640px) {
+    .kbd-hint { display: none; }
+    .stat { padding: 8px 13px; } .stat b { font-size: 16px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-in">
+    <div class="logo">
+      <span class="sheep">🐑</span>
+      <div><b>编程羊毛导航</b><span class="sub">CODING PLAN & FREE RADAR</span></div>
+    </div>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="search" type="text" placeholder="实时搜索：厂商 / 计划 / 标签 / 关键词…（如 免费 学生 夜间 GLM）" autocomplete="off">
+      <span class="kbd-hint">/</span>
+    </div>
+    <button class="icon-btn" id="btn-update" title="抓取远程数据源，合并最新优惠">🔄 查询更新</button>
+    <button class="icon-btn" id="btn-stats" title="图表统计优惠力度">📊 统计</button>
+    <button class="icon-btn" id="btn-source" title="管理远程/本地数据源">🛰 数据源</button>
+    <button class="icon-btn" id="btn-theme" title="切换明暗主题">🌙</button>
+  </div>
+</header>
+
+<section class="stats" id="stats"></section>
+
+<section class="filters">
+  <span class="chip on" data-cat="all">全部</span>
+  <span class="chip" data-cat="plan">订阅 Plan</span>
+  <span class="chip" data-cat="ide">AI IDE</span>
+  <span class="chip" data-cat="cli">命令行 Agent</span>
+  <span class="chip" data-cat="builder">App 构建</span>
+  <span class="chip" data-cat="api">API 免费额度</span>
+  <span class="chip" data-cat="student">学生福利</span>
+  <span class="divider"></span>
+  <span class="chip on" data-region="all">全部地区</span>
+  <span class="chip" data-region="cn">🇨🇳 国内</span>
+  <span class="chip" data-region="intl">🌍 国际</span>
+  <span class="divider"></span>
+  <span class="chip" id="free-only">💰 只看完全免费</span>
+  <select class="chip" id="sort" title="排序">
+    <option value="value">羊毛指数优先</option>
+    <option value="score">优惠力度优先</option>
+    <option value="name">名称 A-Z</option>
+  </select>
+</section>
+
+<div class="result-line" id="result-line"></div>
+
+<main>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">
+    <span class="face">🕳️</span>
+    没有匹配的羊毛…换个关键词试试
+    <br><button id="btn-reset">清空筛选</button>
+  </div>
+</main>
+
+<!-- 对比悬浮条 -->
+<div id="cmp-bar">
+  <span class="cnt">已选 <b id="cmp-n">0</b> / 4</span>
+  <button class="go" id="cmp-go" disabled>⚖ 开始对比</button>
+  <button class="clr" id="cmp-clear">清空</button>
+</div>
+
+<!-- 数据源弹窗 -->
+<dialog id="dlg">
+  <div class="dlg-in">
+    <button class="dlg-close-x" data-close="dlg">✕</button>
+    <h3>🛰 数据源管理</h3>
+    <p class="desc">
+      「🔄 查询更新」会依次尝试：① 本地 <b>data-remote.json / data-remote.js</b>（由项目内 <b>update_data.py</b> 自动抓取生成，双击 <b>一键更新.bat</b> 即可刷新）；
+      ② 你在此填写的远程 JSON 地址（GitHub Raw / jsDelivr 均支持跨域）。新数据与内置数据按名称合并，不会丢失手工条目。
+    </p>
+    <div class="dlg-row">
+      <input id="remote-url" type="url" placeholder="https://raw.githubusercontent.com/你的仓库/main/offers.json（可选）">
+      <button class="primary" id="btn-fetch">拉取此源</button>
+    </div>
+    <div class="dlg-btns">
+      <button id="btn-import">📂 导入本地 JSON</button>
+      <button id="btn-export">💾 导出当前数据</button>
+      <button id="btn-builtin">↩ 恢复内置数据</button>
+      <input type="file" id="file-input" accept=".json" style="display:none">
+    </div>
+    <div class="dlg-status" id="dlg-status"></div>
+  </div>
+</dialog>
+
+<!-- 统计弹窗 -->
+<dialog id="dlg-stats">
+  <div class="dlg-in">
+    <button class="dlg-close-x" data-close="dlg-stats">✕</button>
+    <h3>📊 优惠力度统计</h3>
+    <p class="desc">优惠力度分 = 羊毛指数 ×14 + 限时活动 12 + 免费层 10 + 热薅 4（满分 100），用于横向比较各家给羊毛的诚意。</p>
+    <div id="stats-body"></div>
+  </div>
+</dialog>
+
+<!-- 对比弹窗 -->
+<dialog id="dlg-cmp">
+  <div class="dlg-in">
+    <button class="dlg-close-x" data-close="dlg-cmp">✕</button>
+    <h3>⚖ 方案对比</h3>
+    <p class="desc">绿色加粗 = 该行更优惠的一方。</p>
+    <div class="cmp-wrap" id="cmp-body"></div>
+  </div>
+</dialog>
+
+<div id="toast"></div>
+
+<footer>
+  <span class="warn">⚠️ 羊毛时效性极强，额度与活动随时可能调整，请以各官网最新公告为准。</span><br>
+  数据核查截至 <b id="foot-date"></b> · 内置 <b>72</b> 条 · <span id="foot-check">尚未检查更新</span> · 更新方式：「🔄 查询更新」或 双击 <b>一键更新.bat</b>
+</footer>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  'use strict';
+  var LS_DATA = 'woolnav_custom_v1', LS_THEME = 'woolnav_theme', LS_CHECK = 'woolnav_lastcheck';
+  var CAT_LABEL = { plan: '订阅 Plan', ide: 'AI IDE', cli: '命令行', builder: 'App 构建', api: 'API 额度', student: '学生福利' };
+  var REGION_LABEL = { cn: '国内', intl: '国际' };
+  var MAX_CMP = 4;
+
+  var state = { q: '', cat: 'all', region: 'all', freeOnly: false, sort: 'value' };
+  var picked = [];            // 对比选中的 id 列表（有序）
+  var builtin = window.WOOL_DATA || [];
+  var current = load();
+
+  /* ================= 基础工具 ================= */
+  function load() {
+    try {
+      var raw = localStorage.getItem(LS_DATA);
+      if (!raw) return builtin;
+      var arr = JSON.parse(raw);
+      return Array.isArray(arr) && arr.length ? normalize(arr) : builtin;
+    } catch (e) { return builtin; }
+  }
+  function normalize(arr) {
+    if (arr && !Array.isArray(arr)) arr = arr.offers || arr.items || arr.data || [];
+    return (Array.isArray(arr) ? arr : []).filter(function (d) { return d && d.name && d.url; })
+      .map(function (d, i) {
+        return {
+          id: d.id || ('remote-' + i), vendor: d.vendor || d.provider || '未知厂商', name: String(d.name),
+          cat: CAT_LABEL[d.cat] ? d.cat : 'plan', region: d.region === 'intl' ? 'intl' : 'cn',
+          isFree: !!d.isFree, free: d.free || d.description || '', price: d.price || '以官网为准',
+          promo: d.promo || '', tags: Array.isArray(d.tags) ? d.tags : [],
+          value: Math.min(5, Math.max(1, parseInt(d.value, 10) || 3)), hot: !!d.hot,
+          url: String(d.url), home: d.home || '', note: d.note || '',
+          checked: d.checked || '未知'
+        };
+      });
+  }
+  function persist(arr) {
+    try { localStorage.setItem(LS_DATA, JSON.stringify(arr)); return true; }
+    catch (e) { return false; }
+  }
+  function key(d) { return (d.vendor + d.name).toLowerCase().replace(/[\s（）()·／/]/g, ''); }
+  function score(d) { // 优惠力度分（满分 100）
+    return Math.min(100, Math.round(d.value * 14 + (d.promo ? 12 : 0) + (d.isFree ? 10 : 0) + (d.hot ? 4 : 0)));
+  }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  function hue(str) { var h = 0; for (var i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0; return h % 360; }
+  function stars(v) {
+    var s = ''; for (var i = 1; i <= 5; i++) s += i <= v ? '★' : '<i>☆</i>'; return s;
+  }
+  function hl(escapedText, tokens) {
+    var out = escapedText, lower = escapedText.toLowerCase();
+    tokens.forEach(function (t) {
+      var idx = lower.indexOf(t); if (idx < 0) return;
+      var re = new RegExp(escRe(t), 'gi');
+      out = out.replace(re, function (m) { return '<mark>' + m + '</mark>'; });
+      lower = out.toLowerCase();
+    });
+    return out;
+  }
+  function toast(msg) {
+    var el = document.getElementById('toast');
+    el.innerHTML = msg; el.classList.add('show');
+    clearTimeout(el._t); el._t = setTimeout(function () { el.classList.remove('show'); }, 3000);
+  }
+  function fmtTime(ts) {
+    var d = new Date(ts);
+    function p(n) { return (n < 10 ? '0' : '') + n; }
+    return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+  }
+
+  /* ================= 过滤与渲染 ================= */
+  function filtered() {
+    var tokens = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+    var list = current.filter(function (d) {
+      if (state.cat !== 'all' && d.cat !== state.cat) return false;
+      if (state.region !== 'all' && d.region !== state.region) return false;
+      if (state.freeOnly && !d.isFree) return false;
+      if (!tokens.length) return true;
+      var hay = (d.name + ' ' + d.vendor + ' ' + d.free + ' ' + d.price + ' ' +
+        d.tags.join(' ') + ' ' + (d.note || '') + ' ' + (d.promo || '') + ' ' +
+        CAT_LABEL[d.cat] + ' ' + REGION_LABEL[d.region]).toLowerCase();
+      return tokens.every(function (t) { return hay.indexOf(t) >= 0; });
+    });
+    if (state.sort === 'name') {
+      list.sort(function (a, b) { return a.name.localeCompare(b.name, 'zh'); });
+    } else if (state.sort === 'score') {
+      list.sort(function (a, b) { return score(b) - score(a) || (b.hot - a.hot) || a.name.localeCompare(b.name, 'zh'); });
+    } else {
+      list.sort(function (a, b) {
+        return (b.hot - a.hot) || (b.value - a.value) || a.name.localeCompare(b.name, 'zh');
+      });
+    }
+    return { list: list, tokens: tokens };
+  }
+
+  function renderStats() {
+    var free = current.filter(function (d) { return d.isFree; }).length;
+    var promo = current.filter(function (d) { return d.promo; }).length;
+    var cn = current.filter(function (d) { return d.region === 'cn'; }).length;
+    document.getElementById('stats').innerHTML =
+      stat(current.length, '家平台收录') + stat(free, '家有免费额度') +
+      stat(promo, '个限时活动') + stat(cn, '家国内厂商') + stat(current.length - cn, '家国际厂商');
+  }
+  function stat(n, label) { return '<div class="stat"><b>' + n + '</b><span>' + label + '</span></div>'; }
+
+  function render() {
+    var r = filtered(), grid = document.getElementById('grid');
+    document.getElementById('result-line').textContent =
+      '🔍 匹配 ' + r.list.length + ' / ' + current.length + ' 条' + (state.q ? ' · 关键词「' + state.q + '」' : '');
+    document.getElementById('empty').style.display = r.list.length ? 'none' : 'block';
+    grid.innerHTML = r.list.map(function (d) {
+      var h = hue(d.vendor), sc = score(d), on = picked.indexOf(d.id) >= 0;
+      return '<div class="card' + (d.hot ? ' hot-card' : '') + (on ? ' picked' : '') + '">' +
+        '<div class="c-head">' +
+          '<div class="avatar" style="background:linear-gradient(135deg,hsl(' + h + ',70%,65%),hsl(' + ((h + 45) % 360) + ',70%,55%))">' + esc(d.vendor.charAt(0)) + '</div>' +
+          '<div class="c-title"><b>' + hl(esc(d.name), r.tokens) + '</b><span>' + esc(d.vendor) + '</span></div>' +
+          '<span class="pick-box' + (on ? ' on' : '') + '" data-pick="' + esc(d.id) + '">' + (on ? '✓ 已选' : '☐ 对比') + '</span>' +
+        '</div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:center">' +
+          '<div class="badges">' +
+            '<span class="badge cat-' + d.cat + '">' + CAT_LABEL[d.cat] + '</span>' +
+            '<span class="badge">' + REGION_LABEL[d.region] + '</span>' +
+            (d.isFree ? '<span class="badge" style="color:var(--accent);border-color:rgba(52,211,153,.4)">免费</span>' : '') +
+            (d.hot ? '<span class="badge hot">🔥 热薅</span>' : '') +
+          '</div>' +
+          '<div class="stars" title="羊毛指数 ' + d.value + '/5">' + stars(d.value) + '</div>' +
+        '</div>' +
+        (d.promo ? '<div class="promo">🔥 <span>' + hl(esc(d.promo), r.tokens) + '</span></div>' : '') +
+        '<div class="free-box"><b>' + (d.isFree ? '免费' : '羊毛') + '</b>' + hl(esc(d.free), r.tokens) + '</div>' +
+        '<div class="price">💵 <b>' + hl(esc(d.price), r.tokens) + '</b></div>' +
+        '<div class="score-line" title="优惠力度分 ' + sc + '/100">力度 ' + sc +
+          '<span class="score-bar"><i style="width:' + sc + '%"></i></span>' + sc + '分</div>' +
+        (d.tags.length ? '<div class="tags">' + d.tags.map(function (t) { return '<span class="tag">#' + esc(t) + '</span>'; }).join('') + '</div>' : '') +
+        (d.note ? '<div class="note">' + hl(esc(d.note), r.tokens) + '</div>' : '') +
+        '<div class="c-foot">' +
+          '<a class="btn-go" href="' + esc(d.url) + '" target="_blank" rel="noopener noreferrer">立即领取 ↗</a>' +
+          (d.home ? '<a class="btn-home" href="' + esc(d.home) + '" target="_blank" rel="noopener noreferrer">官网</a>' : '') +
+        '</div>' +
+        '<div class="checked">🕒 核查 ' + esc(d.checked) + ' · 以官网为准</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  /* ================= 对比功能 ================= */
+  function renderCmpBar() {
+    var bar = document.getElementById('cmp-bar');
+    document.getElementById('cmp-n').textContent = picked.length;
+    document.getElementById('cmp-go').disabled = picked.length < 2;
+    bar.classList.toggle('show', picked.length > 0);
+  }
+  document.getElementById('grid').addEventListener('click', function (e) {
+    var box = e.target.closest('[data-pick]');
+    if (!box) return;
+    e.preventDefault();
+    var id = box.getAttribute('data-pick');
+    var i = picked.indexOf(id);
+    if (i >= 0) picked.splice(i, 1);
+    else {
+      if (picked.length >= MAX_CMP) { toast('最多同时对比 ' + MAX_CMP + ' 个方案'); return; }
+      picked.push(id);
+    }
+    render(); renderCmpBar();
+  });
+  document.getElementById('cmp-clear').addEventListener('click', function () {
+    picked = []; render(); renderCmpBar();
+  });
+  document.getElementById('cmp-go').addEventListener('click', function () {
+    var items = picked.map(function (id) {
+      return current.filter(function (d) { return d.id === id; })[0];
+    }).filter(Boolean);
+    if (items.length < 2) return;
+    var bestVal = Math.max.apply(null, items.map(function (d) { return d.value; }));
+    var bestScore = Math.max.apply(null, items.map(function (d) { return score(d); }));
+    function isFreePrice(p) { return /^¥?0($|[^0-9])|^\$0/.test(p.trim()); }
+    var hasFree = items.some(function (d) { return isFreePrice(d.price); });
+    var labels = ['羊毛指数', '优惠力度', '免费内容', '价格', '限时活动', '标签', '核查时间'];
+    var rows = items.map(function (d) {
+      return {
+        name: '<b>' + esc(d.name) + '</b><br><span style="color:var(--text-faint)">' + esc(d.vendor) + '</span>',
+        cat: CAT_LABEL[d.cat] + ' · ' + REGION_LABEL[d.region],
+        value: '<span class="' + (d.value === bestVal ? 'best' : 'dim') + '">' + stars(d.value) + '</span>',
+        score: '<span class="' + (score(d) === bestScore ? 'best' : 'dim') + '">' + score(d) + ' / 100</span>',
+        free: '<span class="dim">' + esc(d.free) + '</span>',
+        price: '<span class="' + (hasFree && isFreePrice(d.price) ? 'best' : 'dim') + '">' + esc(d.price) + '</span>',
+        promo: '<span class="dim">' + (d.promo ? '🔥 ' + esc(d.promo) : '—') + '</span>',
+        tags: '<span class="dim">' + (d.tags.length ? d.tags.map(esc).join('、') : '—') + '</span>',
+        checked: '<span class="dim">' + esc(d.checked) + '</span>'
+      };
+    });
+    var html = '<table class="cmp"><thead><tr><th style="width:80px">对比项</th>' +
+      rows.map(function (r) { return '<th>' + r.name + '</th>'; }).join('') + '</tr></thead><tbody>';
+    html += '<tr><th>分类 / 地区</th>' + rows.map(function (r) { return '<td class="dim">' + r.cat + '</td>'; }).join('') + '</tr>';
+    labels.forEach(function (lb) {
+      var k = { '羊毛指数': 'value', '优惠力度': 'score', '免费内容': 'free', '价格': 'price', '限时活动': 'promo', '标签': 'tags', '核查时间': 'checked' }[lb];
+      html += '<tr><th>' + lb + '</th>' + rows.map(function (r) { return '<td>' + r[k] + '</td>'; }).join('') + '</tr>';
+    });
+    html += '</tbody></table>';
+    document.getElementById('cmp-body').innerHTML = html;
+    document.getElementById('dlg-cmp').showModal();
+  });
+
+  /* ================= 统计图表 ================= */
+  function hbar(label, num, max, color) {
+    var w = max ? Math.round(num / max * 100) : 0;
+    return '<div class="hbar-row"><span class="lbl" title="' + esc(label) + '">' + esc(label) + '</span>' +
+      '<span class="hbar-track"><i style="width:' + w + '%' + (color ? ';background:' + color : '') + '"></i></span>' +
+      '<span class="num">' + num + '</span></div>';
+  }
+  function donut(segs, center) { // segs: [{n, color}]
+    var total = segs.reduce(function (s, x) { return s + x.n; }, 0) || 1, acc = 0, stops = [];
+    segs.forEach(function (s) {
+      var from = acc / total * 360; acc += s.n;
+      var to = acc / total * 360;
+      stops.push(s.color + ' ' + from + 'deg ' + to + 'deg');
+    });
+    return '<div class="donut" style="background:conic-gradient(' + stops.join(',') + ')"><b>' + center + '</b></div>';
+  }
+  document.getElementById('btn-stats').addEventListener('click', function () {
+    var n = current.length;
+    var cats = {}, vals = {}, top;
+    current.forEach(function (d) {
+      cats[d.cat] = (cats[d.cat] || 0) + 1;
+      vals[d.value] = (vals[d.value] || 0) + 1;
+    });
+    var cn = current.filter(function (d) { return d.region === 'cn'; }).length;
+    var free0 = current.filter(function (d) { return d.isFree && /^¥?0($|[^0-9])|^\$0/.test(d.price.trim()); }).length;
+    var freeTier = current.filter(function (d) { return d.isFree && !/^¥?0($|[^0-9])|^\$0/.test(d.price.trim()); }).length;
+    var paid = n - free0 - freeTier;
+    top = current.slice().sort(function (a, b) { return score(b) - score(a); }).slice(0, 10);
+
+    var html = '<div class="ov-chips">' +
+      stat(n, '收录总数') + stat(current.filter(function (d) { return d.isFree; }).length, '有免费额度') +
+      stat(current.filter(function (d) { return d.promo; }).length, '限时活动') +
+      stat(current.filter(function (d) { return d.hot; }).length, '热薅推荐') + '</div>';
+    html += '<div class="chart-grid">';
+    // 分类分布
+    html += '<div class="chart-box"><h4>分类分布</h4>';
+    Object.keys(CAT_LABEL).forEach(function (c) {
+      html += hbar(CAT_LABEL[c], cats[c] || 0, n);
+    });
+    html += '</div>';
+    // 羊毛指数分布
+    html += '<div class="chart-box"><h4>羊毛指数分布（★）</h4>';
+    [5, 4, 3, 2, 1].forEach(function (v) {
+      var c = v === 5 ? 'linear-gradient(90deg,#fbbf24,#f59e0b)' : v === 4 ? 'linear-gradient(90deg,#34d399,#10b981)' : v === 3 ? 'linear-gradient(90deg,#60a5fa,#3b82f6)' : 'rgba(255,255,255,.25)';
+      html += hbar(v + ' 星', vals[v] || 0, n, c);
+    });
+    html += '</div>';
+    // 地区构成
+    html += '<div class="chart-box"><h4>地区构成</h4><div class="donut-wrap">' +
+      donut([{ n: cn, color: '#34d399' }, { n: n - cn, color: '#818cf8' }], n) +
+      '<div class="legend">' +
+        '<span><i style="background:#34d399"></i>国内 ' + cn + ' 家（' + Math.round(cn / n * 100) + '%）</span>' +
+        '<span><i style="background:#818cf8"></i>国际 ' + (n - cn) + ' 家（' + Math.round((n - cn) / n * 100) + '%）</span>' +
+      '</div></div></div>';
+    // 免费构成
+    html += '<div class="chart-box"><h4>免费构成</h4><div class="donut-wrap">' +
+      donut([{ n: free0, color: '#34d399' }, { n: freeTier, color: '#60a5fa' }, { n: paid, color: 'rgba(154,163,181,.35)' }], n) +
+      '<div class="legend">' +
+        '<span><i style="background:#34d399"></i>完全免费 ' + free0 + ' 家</span>' +
+        '<span><i style="background:#60a5fa"></i>有免费层/试用 ' + freeTier + ' 家</span>' +
+        '<span><i style="background:rgba(154,163,181,.35)"></i>纯付费 ' + paid + ' 家</span>' +
+      '</div></div></div>';
+    html += '</div>';
+    // 优惠力度 TOP10
+    html += '<div class="chart-box" style="margin-top:20px"><h4>优惠力度 TOP 10</h4>';
+    top.forEach(function (d) {
+      html += hbar(d.name + '（' + score(d) + '）', score(d), 100,
+        'linear-gradient(90deg,#fbbf24,#34d399)');
+    });
+    html += '</div>';
+    html += '<div class="chart-note">💡 力度分仅供参考：自动抓取/信息不全的条目可能被低估；「羊毛指数」可编辑 data.js 中 value 字段调整。</div>';
+    document.getElementById('stats-body').innerHTML = html;
+    document.getElementById('dlg-stats').showModal();
+  });
+
+  /* ================= 查询更新 ================= */
+  function applyFields(t, d) {
+    ['free', 'price', 'promo', 'tags', 'value', 'hot', 'isFree', 'note', 'checked', 'url'].forEach(function (f) {
+      if (d[f] !== undefined && d[f] !== '' && !(Array.isArray(d[f]) && !d[f].length)) t[f] = d[f];
+    });
+  }
+  function mergeRemote(arr) {
+    if (arr && !Array.isArray(arr)) arr = arr.offers || arr.items || arr.data || [];
+    if (!Array.isArray(arr)) arr = [];
+    var byId = {}, byKey = {}, base = current.slice(), full = [];
+    base.forEach(function (d) { byId[d.id] = d; byKey[key(d)] = d; });
+    var added = 0, updated = 0;
+    arr.forEach(function (d) {
+      if (!d || typeof d !== 'object') return;
+      if (!d.url) {                      // 无 url：视为按 id 更新已有条目的补丁
+        var p = d.id && byId[d.id];
+        if (p) { applyFields(p, d); updated++; }
+        return;
+      }
+      if (d.name) full.push(d);
+    });
+    normalize(full).forEach(function (d) {
+      var t = (d.id && byId[d.id]) || byKey[key(d)];
+      if (t) { applyFields(t, d); updated++; }
+      else {
+        d.id = 'auto-' + (d.id || added) + '-' + Date.now() % 100000;
+        base.push(d); byId[d.id] = d; byKey[key(d)] = d; added++;
+      }
+    });
+    current = base; persist(base);
+    renderStats(); render();
+    return { added: added, updated: updated, total: base.length };
+  }
+  function setChecking(on) {
+    var b = document.getElementById('btn-update');
+    b.disabled = on;
+    b.innerHTML = on ? '<span class="spin">🔄</span> 查询中…' : '🔄 查询更新';
+  }
+  function markChecked(msg) {
+    var ts = fmtTime(Date.now());
+    try { localStorage.setItem(LS_CHECK, String(Date.now())); } catch (e) {}
+    document.getElementById('foot-check').innerHTML = '上次检查：' + ts + ' · ' + msg;
+  }
+  function fetchJSON(url) {
+    return fetch(url, { cache: 'no-store' }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    });
+  }
+  function injectScript(src) {
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = src + '?t=' + Date.now();
+      s.onload = function () { resolve(); };
+      s.onerror = function () { reject(new Error('脚本加载失败')); };
+      document.head.appendChild(s);
+    });
+  }
+  async function checkUpdate() {
+    setChecking(true);
+    var results = [];
+    var localArr = null;
+    // ① 本地 data-remote.json（HTTP 环境）
+    try {
+      localArr = await fetchJSON('data-remote.json');
+      results.push('本地 data-remote.json ✓');
+    } catch (e) { /* file:// 或不存在 */ }
+    // ② 本地 data-remote.js（file:// 也能加载）
+    if (!localArr) {
+      try {
+        await injectScript('data-remote.js');
+        if (window.WOOL_REMOTE) { localArr = window.WOOL_REMOTE; results.push('本地 data-remote.js ✓'); }
+      } catch (e) { /* 不存在 */ }
+    }
+    var summary = '';
+    if (localArr) {
+      var m = mergeRemote(localArr, 'local');
+      summary += '抓取合并：新增 ' + m.added + ' 条 / 更新 ' + m.updated + ' 条';
+    } else {
+      summary += '本地无更新文件（运行 一键更新.bat 生成）';
+    }
+    // ③ 用户自填远程源
+    var userUrl = '';
+    try { userUrl = localStorage.getItem('woolnav_remote') || ''; } catch (e) {}
+    if (userUrl) {
+      try {
+        var m2 = mergeRemote(await fetchJSON(userUrl), 'user');
+        results.push('远程源 ✓');
+        summary += '；远程源：新增 ' + m2.added + ' / 更新 ' + m2.updated;
+      } catch (e) {
+        results.push('远程源 ✗ ' + e.message);
+        summary += '；远程源拉取失败（' + e.message + '）';
+      }
+    }
+    setChecking(false);
+    markChecked(results.length ? results.join('，') : '未发现可用源');
+    toast('🔄 ' + summary);
+  }
+  document.getElementById('btn-update').addEventListener('click', checkUpdate);
+
+  /* ================= 数据源弹窗 ================= */
+  var dlg = document.getElementById('dlg'), status = document.getElementById('dlg-status');
+  function setStatus(msg, cls) { status.textContent = msg; status.className = 'dlg-status' + (cls ? ' ' + cls : ''); }
+  document.getElementById('btn-source').addEventListener('click', function () {
+    try { document.getElementById('remote-url').value = localStorage.getItem('woolnav_remote') || ''; } catch (e) {}
+    dlg.showModal();
+  });
+  document.querySelectorAll('[data-close]').forEach(function (b) {
+    b.addEventListener('click', function () { document.getElementById(b.dataset.close).close(); });
+  });
+  document.getElementById('btn-fetch').addEventListener('click', function () {
+    var url = document.getElementById('remote-url').value.trim();
+    if (!url) { setStatus('请先填写远程 JSON 地址', 'err'); return; }
+    setStatus('正在拉取…');
+    fetchJSON(url)
+      .then(function (json) {
+        var arr = normalize(json);
+        if (!arr.length) throw new Error('未解析到有效条目（需含 name 与 url 字段）');
+        current = arr; persist(arr);
+        try { localStorage.setItem('woolnav_remote', url); } catch (e) {}
+        setStatus('✅ 拉取成功，共 ' + arr.length + ' 条，已覆盖本地数据', 'ok');
+        renderStats(); render(); toast('🛰 远程数据已覆盖（' + arr.length + ' 条）');
+      })
+      .catch(function (err) { setStatus('❌ 拉取失败：' + err.message, 'err'); });
+  });
+  document.getElementById('btn-import').addEventListener('click', function () { document.getElementById('file-input').click(); });
+  document.getElementById('file-input').addEventListener('change', function (e) {
+    var f = e.target.files[0]; if (!f) return;
+    var fr = new FileReader();
+    fr.onload = function () {
+      try {
+        var arr = normalize(JSON.parse(fr.result));
+        if (!arr.length) throw new Error('无有效条目');
+        current = arr; persist(arr);
+        setStatus('✅ 已导入 ' + arr.length + ' 条', 'ok');
+        renderStats(); render(); toast('📂 本地数据已导入');
+      } catch (err) { setStatus('❌ 导入失败：' + err.message, 'err'); }
+    };
+    fr.readAsText(f); e.target.value = '';
+  });
+  document.getElementById('btn-export').addEventListener('click', function () {
+    var blob = new Blob([JSON.stringify(current, null, 2)], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'wool-offers.json'; a.click();
+    URL.revokeObjectURL(a.href);
+  });
+  document.getElementById('btn-builtin').addEventListener('click', function () {
+    current = builtin; persist([]);
+    try { localStorage.removeItem(LS_DATA); } catch (e) {}
+    setStatus('↩ 已恢复内置数据', 'ok');
+    renderStats(); render(); toast('已恢复内置数据');
+  });
+
+  /* ================= 筛选事件 ================= */
+  var searchEl = document.getElementById('search'), tmr = null;
+  searchEl.addEventListener('input', function () {
+    clearTimeout(tmr);
+    tmr = setTimeout(function () { state.q = searchEl.value.trim(); render(); }, 120);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === '/' && document.activeElement !== searchEl) { e.preventDefault(); searchEl.focus(); }
+    if (e.key === 'Escape' && document.activeElement === searchEl) {
+      searchEl.value = ''; state.q = ''; render(); searchEl.blur();
+    }
+  });
+  document.querySelectorAll('[data-cat]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      document.querySelectorAll('[data-cat]').forEach(function (c) { c.classList.remove('on'); });
+      el.classList.add('on'); state.cat = el.dataset.cat; render();
+    });
+  });
+  document.querySelectorAll('[data-region]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      document.querySelectorAll('[data-region]').forEach(function (c) { c.classList.remove('on'); });
+      el.classList.add('on'); state.region = el.dataset.region; render();
+    });
+  });
+  document.getElementById('free-only').addEventListener('click', function () {
+    this.classList.toggle('on'); state.freeOnly = this.classList.contains('on'); render();
+  });
+  document.getElementById('sort').addEventListener('change', function () {
+    state.sort = this.value; render();
+  });
+  document.getElementById('btn-reset').addEventListener('click', function () {
+    state.q = ''; searchEl.value = ''; state.cat = 'all'; state.region = 'all';
+    state.freeOnly = false; document.getElementById('free-only').classList.remove('on');
+    document.querySelectorAll('[data-cat]').forEach(function (c, i) { c.classList.toggle('on', i === 0); });
+    document.querySelectorAll('[data-region]').forEach(function (c, i) { c.classList.toggle('on', i === 0); });
+    render();
+  });
+
+  /* ================= 主题 ================= */
+  var themeBtn = document.getElementById('btn-theme');
+  function setTheme(t) {
+    document.documentElement.dataset.theme = t;
+    themeBtn.textContent = t === 'light' ? '☀️' : '🌙';
+    try { localStorage.setItem(LS_THEME, t); } catch (e) {}
+  }
+  setTheme(localStorage.getItem(LS_THEME) ||
+    (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
+  themeBtn.addEventListener('click', function () {
+    setTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light');
+  });
+
+  /* ================= 启动 ================= */
+  renderStats(); render();
+  document.getElementById('foot-date').textContent = '2026-09-27';
+  try {
+    var last = localStorage.getItem(LS_CHECK);
+    if (last) document.getElementById('foot-check').innerHTML = '上次检查：' + fmtTime(parseInt(last, 10));
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>
