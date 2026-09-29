@@ -155,6 +155,7 @@
   .badge.cat-builder{ color: #fb923c; border-color: rgba(251,146,60,.4); }
   .badge.cat-student{ color: #f472b6; border-color: rgba(244,114,182,.4); }
   .badge.hot { color: var(--amber); border-color: rgba(251,191,36,.45); background: rgba(251,191,36,.08); }
+  .badge.src-media { color: var(--amber); border-color: rgba(251,191,36,.45); background: rgba(251,191,36,.08); }
   .stars { font-size: 13px; letter-spacing: 2px; color: var(--amber); white-space: nowrap; }
   .stars i { font-style: normal; color: var(--text-faint); }
   .promo {
@@ -313,7 +314,7 @@
       <input id="search" type="text" placeholder="实时搜索：厂商 / 计划 / 标签 / 关键词…（如 免费 学生 夜间 GLM）" autocomplete="off">
       <span class="kbd-hint">/</span>
     </div>
-    <button class="icon-btn" id="btn-update" title="抓取远程数据源，合并最新优惠">🔄 查询更新</button>
+    <button class="icon-btn" id="btn-update" title="点击即时联网抓取最新优惠（awesome-coding-ai + cp.pingfan.me，多路镜像/代理兜底）">🔄 查询更新</button>
     <button class="icon-btn" id="btn-stats" title="图表统计优惠力度">📊 统计</button>
     <button class="icon-btn" id="btn-source" title="管理远程/本地数据源">🛰 数据源</button>
     <button class="icon-btn" id="btn-theme" title="切换明暗主题">🌙</button>
@@ -367,8 +368,10 @@
     <button class="dlg-close-x" data-close="dlg">✕</button>
     <h3>🛰 数据源管理</h3>
     <p class="desc">
-      「🔄 查询更新」会依次尝试：① 本地 <b>data-remote.json / data-remote.js</b>（由项目内 <b>update_data.py</b> 自动抓取生成，双击 <b>一键更新.bat</b> 即可刷新）；
-      ② 你在此填写的远程 JSON 地址（GitHub Raw / jsDelivr 均支持跨域）。新数据与内置数据按名称合并，不会丢失手工条目。
+      「🔄 查询更新」<b>点击即实时联网抓取</b>：① awesome-coding-ai 促销审计表（jsDelivr / GitHub Raw / 代理三路镜像）；
+      ② cp.pingfan.me 产品价格（直连 → 公共 CORS 代理）；③ <b>aipromonow 媒体情报 RSS</b>（多方交叉的媒体源，识别厂商后把最新活动写进对应卡片的限时高亮条）；
+      ④ 你在此填写的远程 JSON 地址。在线源全部失败时自动回退本地 <b>data-remote.json / .js</b>（由 <b>update_data.py</b> 生成，双击 <b>一键更新.bat</b> 可刷新）。
+      卡片带 <b>📰 媒体</b> 徽章 = 信息经媒体交叉确认、未上官网核对；自动条目带 🤖 标记，不会覆盖丢失手工条目。
     </p>
     <div class="dlg-row">
       <input id="remote-url" type="url" placeholder="https://raw.githubusercontent.com/你的仓库/main/offers.json（可选）">
@@ -411,7 +414,7 @@
   数据核查截至 <b id="foot-date"></b> · 内置 <b>72</b> 条 · <span id="foot-check">尚未检查更新</span> · 更新方式：「🔄 查询更新」或 双击 <b>一键更新.bat</b>
 </footer>
 
-<script src="data.js"></script>
+<script src="data.js?v=6"></script>
 <script>
 (function () {
   'use strict';
@@ -445,6 +448,7 @@
           promo: d.promo || '', tags: Array.isArray(d.tags) ? d.tags : [],
           value: Math.min(5, Math.max(1, parseInt(d.value, 10) || 3)), hot: !!d.hot,
           url: String(d.url), home: d.home || '', note: d.note || '',
+          src: d.src === 'media' ? 'media' : (d.src === 'agg' ? 'agg' : 'official'),
           checked: d.checked || '未知'
         };
       });
@@ -537,6 +541,7 @@
           '<div class="badges">' +
             '<span class="badge cat-' + d.cat + '">' + CAT_LABEL[d.cat] + '</span>' +
             '<span class="badge">' + REGION_LABEL[d.region] + '</span>' +
+            (d.src === 'media' ? '<span class="badge src-media" title="信息经媒体多方交叉确认，未上官网核对">📰 媒体</span>' : '') +
             (d.isFree ? '<span class="badge" style="color:var(--accent);border-color:rgba(52,211,153,.4)">免费</span>' : '') +
             (d.hot ? '<span class="badge hot">🔥 热薅</span>' : '') +
           '</div>' +
@@ -724,10 +729,194 @@
     renderStats(); render();
     return { added: added, updated: updated, total: base.length };
   }
-  function setChecking(on) {
+  /* ================= 实时抓取（点击按钮即时联网拉源） ================= */
+  var TAG2CAT = { ide: 'ide', gui: 'ide', extension: 'ide', cli: 'cli', background: 'cli', 'app-builder': 'builder', oss: 'cli', 'own-model': 'plan' };
+  var CN_HINTS = ['trae', 'qoder', 'iflow', 'codebuddy', 'glm', 'kimi', 'qwen', 'minimax', 'comate', 'lingma', 'marscode', 'siliconflow', 'modelscope', 'zhipu', 'moonshot', 'deepseek', 'codegeex', 'fitten', 'bigmodel', '心流', '智谱', '通义', '快码'];
+  var FREE_HINTS = ['free', '免费', '白嫖', 'trial', '试用', 'credit', 'quota', 'student', 'promo', 'discount', 'off'];
+  var ALIAS = { claude: 'claude-code', chatgpt: 'codex', grok: 'grok-build', kimi: 'kimi-coding', glm: 'glm-coding', qwen: 'qwen-code', copilot: 'copilot-free', githubcopilot: 'copilot-free', windsurf: 'windsurf', cursor: 'cursor', kiro: 'kiro', opencode: 'opencode', commandcode: 'commandcode', trae: 'trae', devin: 'devin', amazonq: 'amazon-q', jetbrains: 'jetbrains-ai', replit: 'replit', deepseek: 'deepseek', openrouter: 'openrouter', antigravity: 'antigravity', google: 'antigravity', augment: 'augment' };
+  function nk(s) { return String(s).toLowerCase().replace(/[\s（）()·／\/\-_.！!？?：:]/g, ''); }
+  var BUILTIN_KEYS = {};
+  builtin.forEach(function (b) { BUILTIN_KEYS[nk(b.name)] = 1; BUILTIN_KEYS[nk(b.vendor + b.name)] = 1; });
+
+  function fetchText(url, timeoutMs) {
+    var ctrl = ('AbortController' in window) ? new AbortController() : null;
+    var t = ctrl && setTimeout(function () { ctrl.abort(); }, timeoutMs || 20000);
+    return fetch(url, { cache: 'no-store', signal: ctrl && ctrl.signal })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+      .finally(function () { if (t) clearTimeout(t); });
+  }
+  // CORS 代理链：直连（CORS 开放的源）→ 公共代理（allorigins/corsproxy 部分场景 401，codetabs/jina 兜底）
+  async function fetchViaProxies(url) {
+    var chains = [url,
+      'https://api.allorigins.win/raw?url=' + encodeURIComponent(url),
+      'https://corsproxy.io/?url=' + encodeURIComponent(url),
+      'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(url),
+      'https://r.jina.ai/' + url];
+    var err;
+    for (var i = 0; i < chains.length; i++) {
+      try { return await fetchText(chains[i], 25000); }
+      catch (e) { err = e; }
+    }
+    throw err || new Error('全部代理失败');
+  }
+  function todayStr() { return new Date().toISOString().slice(0, 10); }
+
+  /* ---- 源 1：awesome-coding-ai 促销审计表（markdown 表格） ---- */
+  async function liveAwesome() {
+    var mirrors = [
+      'https://cdn.jsdelivr.net/gh/ohong/awesome-coding-ai@main/README.md',
+      'https://raw.githubusercontent.com/ohong/awesome-coding-ai/main/README.md',
+      'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://raw.githubusercontent.com/ohong/awesome-coding-ai/main/README.md')
+    ];
+    var md = null, err;
+    for (var i = 0; i < mirrors.length; i++) {
+      try { md = await fetchText(mirrors[i], 25000); break; } catch (e) { err = e; }
+    }
+    if (md === null) throw err || new Error('所有镜像不可达');
+    var today = todayStr(), out = [], seen = {}, m;
+    var re = /^\|\s*\[([^\]]+)\]\((https?[^)\s]+)[^)]*\)\s*\|([^|]*)\|([^|]*)\|([^|]*)\|\s*$/gm;
+    while ((m = re.exec(md))) {
+      var name = m[1].trim(), url = m[2], tags = m[3] || '', notes = m[4] || '', promo = m[5] || '';
+      var k = nk(name);
+      if (!k || seen[k] || BUILTIN_KEYS[k] || BUILTIN_KEYS[nk(name + name)]) continue;
+      seen[k] = 1;
+      var blob = (tags + ' ' + notes + ' ' + promo).toLowerCase();
+      var cat = 'plan';
+      for (var t in TAG2CAT) if (tags.toLowerCase().indexOf(t) >= 0) { cat = TAG2CAT[t]; break; }
+      var isFree = FREE_HINTS.some(function (h) { return blob.indexOf(h) >= 0; });
+      var region = CN_HINTS.some(function (h) { return blob.indexOf(h) >= 0 || name.toLowerCase().indexOf(h) >= 0; }) ? 'cn' : 'intl';
+      var tagArr = tags.trim().split(/\s+/).filter(Boolean).slice(0, 2);
+      var cleanMd = function (s) {
+        return String(s).replace(/\]\(\s*https?:[^)\s]*[^)]*\)/g, '').replace(/[\[\]]/g, '').replace(/\s+/g, ' ').trim().replace(/^[-| ]+|[-| ]+$/g, '');
+      };
+      out.push({
+        id: 'aw-' + k.slice(0, 40), vendor: name, name: name, cat: cat, region: region,
+        isFree: isFree, free: cleanMd(notes + ' ' + promo) || '见官方页面说明',
+        price: '以官网为准', tags: ['自动抓取'].concat(tagArr),
+        value: isFree ? 4 : 3, hot: false, url: url,
+        note: '🤖 实时抓取自 awesome-coding-ai，未经人工核查',
+        checked: today + '(实时)'
+      });
+    }
+    return { rows: (md.match(re) || []).length, list: out };
+  }
+
+  /* ---- 源 2：cp.pingfan.me 首页产品价格（React SSR HTML） ---- */
+  function parsePingfanHtml(html) {
+    html = String(html).replace(/<!-- -->/g, '');
+    var out = [], seen = {};
+    html.split('<a ').forEach(function (seg) {
+      var sm = seg.match(/href="(\/products\/[a-z0-9-]+)"/);
+      if (!sm) return;
+      var pm = seg.match(/(\$ ?[\d][\d,.]*|¥ ?[\d][\d,.]*)/);
+      if (!pm) return;
+      var nm = seg.match(/>#\d+<\/span>([^<]+)(?:<span[^>]*>·\s*([^<]+))?/);
+      var brand = nm ? nm[1].trim() : sm[1].split('/')[1];
+      var tier = nm && nm[2] ? nm[2].trim() : '';
+      var name = (brand + ' ' + tier).trim();
+      var k = nk(name);
+      if (!k || seen[k]) return;
+      seen[k] = 1;
+      out.push({
+        name: name, brand: brand.toLowerCase().replace(/ /g, ''),
+        price: pm[1].replace(/ /g, ''),
+        region: /中国|国内/.test(seg) ? 'cn' : 'intl',
+        url: 'https://cp.pingfan.me' + sm[1]
+      });
+    });
+    return out;
+  }
+  async function livePingfan() {
+    var html = await fetchViaProxies('https://cp.pingfan.me');
+    var list = parsePingfanHtml(html);
+    var today = todayStr(), patches = [], fresh = [];
+    list.forEach(function (e) {
+      var bid = ALIAS[nk(e.brand)];
+      var hit = bid && builtin.filter(function (b) { return b.id === bid; })[0];
+      if (hit) { patches.push({ id: hit.id, price: e.price, checked: today + '(实时)' }); return; }
+      fresh.push({
+        id: 'pf-' + nk(e.name).slice(0, 40), vendor: e.brand, name: e.name,
+        cat: 'plan', region: e.region,
+        isFree: /free|0/i.test(e.price),
+        free: '实时抓取的入门套餐信息，详见链接页面',
+        price: e.price, tags: ['自动抓取', 'Coding Plan'],
+        value: 3, hot: false, url: e.url,
+        note: '🤖 实时抓取自 cp.pingfan.me，未经人工核查',
+        checked: today + '(实时)'
+      });
+    });
+    return { products: list.length, patches: patches, fresh: fresh };
+  }
+
+  /* ---- 源 3：aipromonow.com 媒体促销情报（RSS）----
+     信息源不只是官方：该站是多方交叉比对的媒体情报站（AI 优惠雷达），
+     标题识别厂商后优先给对应内置条目打活动补丁，识别不出的单独成卡 */
+  var VENDOR_PATCH = [
+    { re: /ZCode/i, bid: 'zcode-zai' },
+    { re: /GLM|智谱/i, bid: 'glm-coding' },
+    { re: /DeepSeek|深度求索/i, bid: 'deepseek' },
+    { re: /MiniMax/i, bid: 'minimax-coding' },
+    { re: /火山|方舟|豆包/i, bid: 'volcark' },
+    { re: /书生|端砚|墨点/i, bid: 'shlab-inkstone' },
+    { re: /Manus|Cue/i, bid: 'manus-cue' },
+    { re: /Kimi|月之暗面/i, bid: 'kimi-coding' },
+    { re: /Qwen|通义|千问/i, bid: 'qwen-code' },
+    { re: /CodeBuddy/i, bid: 'codebuddy' },
+    { re: /Comate|文心快码/i, bid: 'comate' },
+    { re: /Claude|Anthropic/i, bid: 'claude-code' },
+    { re: /Codex|OpenAI|ChatGPT/i, bid: 'codex' },
+    { re: /Copilot|GitHub/i, bid: 'copilot-free' },
+    { re: /Cursor/i, bid: 'cursor' },
+    { re: /Windsurf/i, bid: 'windsurf' },
+    { re: /Trae/i, bid: 'trae' },
+    { re: /OpenRouter/i, bid: 'openrouter' },
+    { re: /Gemini|Antigravity|Google/i, bid: 'antigravity' }
+  ];
+  function parseRss(xml) {
+    var items = [], re = /<item[\s\S]*?<\/item>/g, m;
+    while ((m = re.exec(xml))) {
+      var it = m[0];
+      var t = it.match(/<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/);
+      var l = it.match(/<link>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/);
+      if (t && l) items.push({ title: t[1].trim(), link: l[1].trim() });
+    }
+    return items;
+  }
+  async function liveAipromonow() {
+    var xml = await fetchViaProxies('https://www.aipromonow.com/rss.xml');
+    var items = parseRss(xml);
+    var today = todayStr(), patches = [], fresh = [];
+    // RSS 最新在前：倒序处理让「最新一条」最后落笔，覆盖旧活动
+    items.slice().reverse().forEach(function (it) {
+      var title = it.title.slice(0, 60);
+      var hit = null;
+      for (var i = 0; i < VENDOR_PATCH.length; i++) {
+        if (VENDOR_PATCH[i].re.test(it.title)) { hit = VENDOR_PATCH[i]; break; }
+      }
+      if (hit) {
+        // 已收录厂商：把最新活动写进其卡片的限时高亮条
+        patches.push({ id: hit.bid, promo: title, checked: today + '(实时·媒体)' });
+      } else {
+        var isFree = /免费|token|赠金|送|领|试用|free|credit/i.test(it.title);
+        fresh.push({
+          id: 'ap-' + nk(it.title).slice(0, 40),
+          vendor: 'AI优惠雷达', name: it.title.slice(0, 48),
+          cat: 'plan', region: /ZCode|智谱|GLM|火山|豆包|书生|MiniMax|DeepSeek|Kimi|通义|Qwen|CodeBuddy|Comate|Trae/i.test(it.title) ? 'cn' : 'intl',
+          isFree: isFree, free: it.title, price: '见文章说明',
+          tags: ['媒体快讯', '限时'], value: 2, hot: false,
+          url: it.link, home: 'https://www.aipromonow.com',
+          note: '📰 实时媒体快讯（aipromonow），厂商待识别，以官方为准',
+          src: 'media', checked: today + '(实时)'
+        });
+      }
+    });
+    return { items: items.length, patches: patches, fresh: fresh };
+  }
+
+  function setChecking(on, label) {
     var b = document.getElementById('btn-update');
     b.disabled = on;
-    b.innerHTML = on ? '<span class="spin">🔄</span> 查询中…' : '🔄 查询更新';
+    b.innerHTML = on ? '<span class="spin">🔄</span> ' + (label || '实时抓取中…') : '🔄 查询更新';
   }
   function markChecked(msg) {
     var ts = fmtTime(Date.now());
@@ -750,44 +939,70 @@
     });
   }
   async function checkUpdate() {
-    setChecking(true);
-    var results = [];
-    var localArr = null;
-    // ① 本地 data-remote.json（HTTP 环境）
+    setChecking(true, '抓取 awesome…');
+    var lines = [], full = [], patches = [];
+    var awOk = false, pfOk = false;
+    // ① awesome-coding-ai（jsDelivr → raw → 代理，三路镜像）
     try {
-      localArr = await fetchJSON('data-remote.json');
-      results.push('本地 data-remote.json ✓');
-    } catch (e) { /* file:// 或不存在 */ }
-    // ② 本地 data-remote.js（file:// 也能加载）
-    if (!localArr) {
-      try {
-        await injectScript('data-remote.js');
-        if (window.WOOL_REMOTE) { localArr = window.WOOL_REMOTE; results.push('本地 data-remote.js ✓'); }
-      } catch (e) { /* 不存在 */ }
-    }
+      var aw = await liveAwesome();
+      full = full.concat(aw.list);
+      awOk = true;
+      lines.push('✅ awesome-coding-ai：解析 ' + aw.rows + ' 行，新候选 ' + aw.list.length + ' 条');
+    } catch (e) { lines.push('❌ awesome 源失败：' + e.message); }
+    setChecking(true, awOk ? '抓取 cp.pingfan…' : '抓取 cp.pingfan…');
+    // ② cp.pingfan.me（直连→公共代理链）
+    try {
+      var pf = await livePingfan();
+      patches = patches.concat(pf.patches);
+      // pf 新产品与 awesome 候选去重互补
+      var have = {}; full.forEach(function (d) { have[nk(d.name)] = 1; });
+      pf.fresh.forEach(function (d) { if (!have[nk(d.name)]) full.push(d); });
+      pfOk = true;
+      lines.push('✅ cp.pingfan.me：产品 ' + pf.products + ' 个，价格补丁 ' + pf.patches.length + ' 条');
+    } catch (e) { lines.push('❌ cp.pingfan 源失败：' + e.message); }
+    setChecking(true, '抓取媒体情报…');
+    // ③ aipromonow 媒体促销情报（RSS，经代理链）
+    var apOk = false;
+    try {
+      var ap = await liveAipromonow();
+      patches = patches.concat(ap.patches);
+      var haveAp = {}; full.forEach(function (d) { haveAp[nk(d.name)] = 1; });
+      ap.fresh.forEach(function (d) { if (!haveAp[nk(d.name)]) full.push(d); });
+      apOk = true;
+      lines.push('✅ 媒体情报 aipromonow：快讯 ' + ap.items + ' 条，活动补丁 ' + ap.patches.length + ' 条');
+    } catch (e) { lines.push('❌ 媒体情报源失败：' + e.message); }
+    // ④ 合并
     var summary = '';
-    if (localArr) {
-      var m = mergeRemote(localArr, 'local');
-      summary += '抓取合并：新增 ' + m.added + ' 条 / 更新 ' + m.updated + ' 条';
+    if (full.length || patches.length) {
+      var m = mergeRemote(full.concat(patches));
+      summary = '实时抓取：新增 ' + m.added + ' / 更新 ' + m.updated + '（现共 ' + m.total + ' 条）';
     } else {
-      summary += '本地无更新文件（运行 一键更新.bat 生成）';
+      // 全部在线源失败 → 回退本地缓存
+      setChecking(true, '在线源失败，读本地缓存…');
+      var localArr = null;
+      try { localArr = await fetchJSON('data-remote.json'); lines.push('⚠️ 已回退本地 data-remote.json'); } catch (e) {}
+      if (!localArr) {
+        try { await injectScript('data-remote.js'); if (window.WOOL_REMOTE) { localArr = window.WOOL_REMOTE; lines.push('⚠️ 已回退本地 data-remote.js'); } } catch (e) {}
+      }
+      if (localArr) {
+        var m2 = mergeRemote(localArr);
+        summary = '本地缓存合并：新增 ' + m2.added + ' / 更新 ' + m2.updated;
+      } else {
+        summary = '在线源与本地缓存均不可用（检查网络后重试）';
+      }
     }
-    // ③ 用户自填远程源
+    // ④ 用户自填远程源
     var userUrl = '';
     try { userUrl = localStorage.getItem('woolnav_remote') || ''; } catch (e) {}
     if (userUrl) {
       try {
-        var m2 = mergeRemote(await fetchJSON(userUrl), 'user');
-        results.push('远程源 ✓');
-        summary += '；远程源：新增 ' + m2.added + ' / 更新 ' + m2.updated;
-      } catch (e) {
-        results.push('远程源 ✗ ' + e.message);
-        summary += '；远程源拉取失败（' + e.message + '）';
-      }
+        var m3 = mergeRemote(await fetchJSON(userUrl));
+        lines.push('✅ 自填远程源：新增 ' + m3.added + ' / 更新 ' + m3.updated);
+      } catch (e) { lines.push('❌ 自填远程源失败：' + e.message); }
     }
     setChecking(false);
-    markChecked(results.length ? results.join('，') : '未发现可用源');
-    toast('🔄 ' + summary);
+    markChecked((awOk ? 'awesome✓ ' : 'awesome✗ ') + (pfOk ? 'pingfan✓ ' : 'pingfan✗ ') + (apOk ? '媒体✓' : '媒体✗'));
+    toast('🔄 ' + summary + '<br><span style="font-size:11.5px;color:var(--text-faint)">' + lines.join('<br>') + '</span>');
   }
   document.getElementById('btn-update').addEventListener('click', checkUpdate);
 

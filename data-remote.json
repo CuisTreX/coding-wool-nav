@@ -1,12 +1,13 @@
 {
  "meta": {
-  "generated": "2026-09-27 15:50:06",
+  "generated": "2026-09-29 22:36:47",
   "sources": [
    "awesome-coding-ai README",
-   "cp.pingfan.me"
+   "cp.pingfan.me",
+   "aipromonow RSS"
   ],
-  "newEntries": 78,
-  "patches": 18
+  "newEntries": 90,
+  "patches": 36
  },
  "offers": [
   {
@@ -26,7 +27,7 @@
    "hot": false,
    "url": "https://www.augmentcode.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-autohandcodecli",
@@ -46,7 +47,7 @@
    "hot": false,
    "url": "https://autohand.ai/code/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-devinforterminal",
@@ -65,7 +66,7 @@
    "hot": false,
    "url": "https://docs.devin.ai/desktop/models",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-githubcopilot",
@@ -83,7 +84,7 @@
    "hot": false,
    "url": "https://github.com/features/copilot",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-junie",
@@ -102,7 +103,7 @@
    "hot": false,
    "url": "https://www.jetbrains.com/junie/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-kirocli",
@@ -121,7 +122,7 @@
    "hot": false,
    "url": "https://kiro.dev/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-zcode",
@@ -140,7 +141,7 @@
    "hot": false,
    "url": "https://zcode.z.ai/en",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-adal",
@@ -159,7 +160,7 @@
    "hot": false,
    "url": "https://sylph.ai/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-agentisland",
@@ -178,7 +179,7 @@
    "hot": false,
    "url": "https://www.agent-island.dev/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-agenttrace",
@@ -198,7 +199,7 @@
    "hot": false,
    "url": "https://github.com/luoyuctl/agenttrace",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-aiautocomplete",
@@ -218,7 +219,7 @@
    "hot": false,
    "url": "https://github.com/fsiovn/ai-autocomplete",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-aiderdesk",
@@ -238,7 +239,7 @@
    "hot": false,
    "url": "https://github.com/hotovo/aider-desk",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-antigravity",
@@ -257,7 +258,7 @@
    "hot": false,
    "url": "https://antigravity.google/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-antigravitycli",
@@ -276,7 +277,7 @@
    "hot": false,
    "url": "https://antigravity.google/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-anything",
@@ -295,7 +296,7 @@
    "hot": false,
    "url": "https://www.createanything.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-astrbot",
@@ -314,7 +315,7 @@
    "hot": false,
    "url": "https://github.com/AstrBotDevs/AstrBot",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-betteragent",
@@ -333,7 +334,7 @@
    "hot": false,
    "url": "https://github.com/ofekron/better-agent",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-boltai",
@@ -352,7 +353,7 @@
    "hot": false,
    "url": "https://bolt.new/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-cmux",
@@ -371,7 +372,7 @@
    "hot": false,
    "url": "https://www.cmux.dev/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-codestudio",
@@ -390,7 +391,7 @@
    "hot": false,
    "url": "https://www.syncfusion.com/code-studio/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-codeartsagent",
@@ -409,7 +410,7 @@
    "hot": false,
    "url": "https://www.huaweicloud.com/intl/en-us/product/codearts.html",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-codemaker",
@@ -428,7 +429,7 @@
    "hot": false,
    "url": "https://codemaker.ai/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-conductor",
@@ -447,7 +448,7 @@
    "hot": false,
    "url": "https://conductor.build/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-cortexcode",
@@ -466,7 +467,7 @@
    "hot": false,
    "url": "https://www.snowflake.com/en/product/features/cortex/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-crush",
@@ -486,7 +487,7 @@
    "hot": false,
    "url": "https://github.com/charmbracelet/crush",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-ctonew",
@@ -505,7 +506,7 @@
    "hot": false,
    "url": "https://cto.new/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-deepagents",
@@ -524,7 +525,7 @@
    "hot": false,
    "url": "https://github.com/langchain-ai/deepagents",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-dexto",
@@ -544,7 +545,7 @@
    "hot": false,
    "url": "https://github.com/truffle-ai/dexto",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-droid",
@@ -564,7 +565,7 @@
    "hot": false,
    "url": "https://factory.ai/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-emergent",
@@ -583,7 +584,7 @@
    "hot": false,
    "url": "https://emergent.sh/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-eve",
@@ -602,7 +603,7 @@
    "hot": false,
    "url": "https://vercel.com/blog/introducing-eve",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-firebender",
@@ -621,7 +622,7 @@
    "hot": false,
    "url": "https://firebender.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-forgecode",
@@ -640,7 +641,7 @@
    "hot": false,
    "url": "https://forgecode.dev/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-geminicli",
@@ -660,7 +661,7 @@
    "hot": false,
    "url": "https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-googleaistudio",
@@ -679,7 +680,7 @@
    "hot": false,
    "url": "https://aistudio.google.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-hermesagent",
@@ -699,7 +700,7 @@
    "hot": false,
    "url": "https://hermes-agent.nousresearch.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-inferencesh",
@@ -719,7 +720,7 @@
    "hot": false,
    "url": "https://inference.sh/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-jazz",
@@ -739,7 +740,7 @@
    "hot": false,
    "url": "https://github.com/lvndry/jazz",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-kimchi",
@@ -759,7 +760,7 @@
    "hot": false,
    "url": "https://kimchi.dev/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-kode",
@@ -779,7 +780,7 @@
    "hot": false,
    "url": "https://github.com/shareAI-lab/kode",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-lingma",
@@ -798,7 +799,7 @@
    "hot": false,
    "url": "https://lingma.aliyun.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-loaf",
@@ -818,7 +819,7 @@
    "hot": false,
    "url": "https://github.com/levifig/loaf",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-magicpatterns",
@@ -837,7 +838,7 @@
    "hot": false,
    "url": "https://www.magicpatterns.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-mcpjam",
@@ -856,7 +857,7 @@
    "hot": false,
    "url": "https://www.mcpjam.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-moxby",
@@ -875,7 +876,7 @@
    "hot": false,
    "url": "https://moxby.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-mux",
@@ -895,7 +896,7 @@
    "hot": false,
    "url": "https://github.com/coder/mux",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-nanocoder",
@@ -915,7 +916,7 @@
    "hot": false,
    "url": "https://github.com/Nano-Collective/nanocoder",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-neovate",
@@ -935,7 +936,7 @@
    "hot": false,
    "url": "https://neovateai.dev/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-ona",
@@ -954,7 +955,7 @@
    "hot": false,
    "url": "https://ona.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-openclaw",
@@ -973,7 +974,7 @@
    "hot": false,
    "url": "https://openclaw.ai/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-opencodemobile",
@@ -993,7 +994,7 @@
    "hot": false,
    "url": "https://github.com/dzianisv/opencode-mobile",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-openpaw",
@@ -1012,7 +1013,7 @@
    "hot": false,
    "url": "https://github.com/daxaur/openpaw",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-orchids",
@@ -1031,7 +1032,7 @@
    "hot": false,
    "url": "https://www.orchids.app/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-parallelcode",
@@ -1051,7 +1052,7 @@
    "hot": false,
    "url": "https://parallelcode.app/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-pi",
@@ -1071,7 +1072,7 @@
    "hot": false,
    "url": "https://github.com/badlogic/pi-mono",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-pochi",
@@ -1091,7 +1092,7 @@
    "hot": false,
    "url": "https://getpochi.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-promptscript",
@@ -1110,7 +1111,7 @@
    "hot": false,
    "url": "https://getpromptscript.dev/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-qodercn",
@@ -1129,7 +1130,7 @@
    "hot": false,
    "url": "https://www.alibabacloud.com/help/en/lingma/billing-description",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-qwencode",
@@ -1149,7 +1150,7 @@
    "hot": false,
    "url": "https://github.com/QwenLM/qwen-code",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-reasonix",
@@ -1169,7 +1170,7 @@
    "hot": false,
    "url": "https://reasonix.homes/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-replit",
@@ -1188,7 +1189,7 @@
    "hot": false,
    "url": "https://replit.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-scottai",
@@ -1207,7 +1208,7 @@
    "hot": false,
    "url": "https://www.tryscott.ai/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-shep",
@@ -1227,7 +1228,7 @@
    "hot": false,
    "url": "https://github.com/shep-ai/shep",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-tabnine",
@@ -1246,7 +1247,7 @@
    "hot": false,
    "url": "https://www.tabnine.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-tabninecli",
@@ -1265,7 +1266,7 @@
    "hot": false,
    "url": "https://www.tabnine.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-terragon",
@@ -1284,7 +1285,7 @@
    "hot": false,
    "url": "https://www.terragonlabs.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-terramind",
@@ -1303,7 +1304,7 @@
    "hot": false,
    "url": "https://nucleus.terramind.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-tinycloud",
@@ -1322,7 +1323,7 @@
    "hot": false,
    "url": "https://tinycloud.sh/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-trae",
@@ -1341,7 +1342,7 @@
    "hot": false,
    "url": "https://www.trae.ai/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-traecn",
@@ -1360,7 +1361,7 @@
    "hot": false,
    "url": "https://www.trae.cn/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-universal",
@@ -1378,7 +1379,7 @@
    "hot": false,
    "url": "https://github.com/vercel-labs/skills#supported-agents",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-vibekanban",
@@ -1397,7 +1398,7 @@
    "hot": false,
    "url": "https://www.vibekanban.com/",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "aw-zenflow",
@@ -1416,7 +1417,7 @@
    "hot": false,
    "url": "https://zencoder.ai/download",
    "note": "🤖 自动抓取自 awesome-coding-ai，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "pf-glmcodingplanlite",
@@ -1435,7 +1436,7 @@
    "hot": false,
    "url": "https://cp.pingfan.me/products/glm-coding",
    "note": "🤖 自动抓取自 cp.pingfan.me，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "pf-qwencodetokenplanpersonallite",
@@ -1454,7 +1455,7 @@
    "hot": false,
    "url": "https://cp.pingfan.me/products/qwen-code",
    "note": "🤖 自动抓取自 cp.pingfan.me，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "pf-googleantigravity",
@@ -1473,7 +1474,7 @@
    "hot": false,
    "url": "https://cp.pingfan.me/products/google-antigravity",
    "note": "🤖 自动抓取自 cp.pingfan.me，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "pf-glmcoding",
@@ -1492,7 +1493,7 @@
    "hot": false,
    "url": "https://cp.pingfan.me/products/glm-coding",
    "note": "🤖 自动抓取自 cp.pingfan.me，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "pf-jetbrainsai",
@@ -1511,97 +1512,439 @@
    "hot": false,
    "url": "https://cp.pingfan.me/products/jetbrains-ai",
    "note": "🤖 自动抓取自 cp.pingfan.me，未经人工核查",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
+  },
+  {
+   "id": "ap-gmicloudhyimage35preview限时免费一周玩到10月1日",
+   "vendor": "AI优惠雷达",
+   "name": "GMI Cloud Hy Image 3.5 Preview 限时免费一周 玩到 10 月 1 ",
+   "cat": "plan",
+   "region": "cn",
+   "isFree": true,
+   "free": "GMI Cloud Hy Image 3.5 Preview 限时免费一周 玩到 10 月 1 日",
+   "price": "见文章说明",
+   "tags": [
+    "媒体快讯",
+    "限时"
+   ],
+   "value": 2,
+   "hot": false,
+   "url": "https://www.aipromonow.com/promos/gmi-cloud-hy-image-35-preview-free-week-oct1-2026?utm_source=rss&amp;utm_medium=referral&amp;utm_campaign=deal_updates",
+   "home": "https://www.aipromonow.com",
+   "note": "📰 实时媒体快讯（aipromonow），厂商待识别，以官方为准",
+   "src": "media",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "ap-opencode美团longcat25preview限时两周免费zen和go都能",
+   "vendor": "AI优惠雷达",
+   "name": "OpenCode 美团 LongCat 2.5 Preview 限时两周免费 Zen 和 Go ",
+   "cat": "plan",
+   "region": "cn",
+   "isFree": true,
+   "free": "OpenCode 美团 LongCat 2.5 Preview 限时两周免费 Zen 和 Go 都能用且不消耗额度",
+   "price": "见文章说明",
+   "tags": [
+    "媒体快讯",
+    "限时"
+   ],
+   "value": 2,
+   "hot": false,
+   "url": "https://www.aipromonow.com/promos/opencode-longcat-25-preview-free-2weeks-oct2026?utm_source=rss&amp;utm_medium=referral&amp;utm_campaign=deal_updates",
+   "home": "https://www.aipromonow.com",
+   "note": "📰 实时媒体快讯（aipromonow），厂商待识别，以官方为准",
+   "src": "media",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "ap-美团longcat25preview上线已实名约送500万tokens邀请还能叠",
+   "vendor": "AI优惠雷达",
+   "name": "美团 LongCat-2.5-Preview 上线 已实名约送 500 万 Tokens 邀请还",
+   "cat": "plan",
+   "region": "cn",
+   "isFree": true,
+   "free": "美团 LongCat-2.5-Preview 上线 已实名约送 500 万 Tokens 邀请还能叠加",
+   "price": "见文章说明",
+   "tags": [
+    "媒体快讯",
+    "限时"
+   ],
+   "value": 2,
+   "hot": false,
+   "url": "https://www.aipromonow.com/promos/meituan-longcat-25-preview-free-tokens-sep2026?utm_source=rss&amp;utm_medium=referral&amp;utm_campaign=deal_updates",
+   "home": "https://www.aipromonow.com",
+   "note": "📰 实时媒体快讯（aipromonow），厂商待识别，以官方为准",
+   "src": "media",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "ap-cline限时免费用pixelcanary隐身模型可直接切",
+   "vendor": "AI优惠雷达",
+   "name": "Cline 限时免费用 Pixel Canary 隐身模型可直接切",
+   "cat": "plan",
+   "region": "cn",
+   "isFree": true,
+   "free": "Cline 限时免费用 Pixel Canary 隐身模型可直接切",
+   "price": "见文章说明",
+   "tags": [
+    "媒体快讯",
+    "限时"
+   ],
+   "value": 2,
+   "hot": false,
+   "url": "https://www.aipromonow.com/promos/cline-free-pixel-canary-stealth-sep2026?utm_source=rss&amp;utm_medium=referral&amp;utm_campaign=deal_updates",
+   "home": "https://www.aipromonow.com",
+   "note": "📰 实时媒体快讯（aipromonow），厂商待识别，以官方为准",
+   "src": "media",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "ap-lightvela新用户首单免费一个月启航ai送4500积分",
+   "vendor": "AI优惠雷达",
+   "name": "LightVela 新用户首单免费一个月启航 AI 送 4500 积分",
+   "cat": "plan",
+   "region": "cn",
+   "isFree": true,
+   "free": "LightVela 新用户首单免费一个月启航 AI 送 4500 积分",
+   "price": "见文章说明",
+   "tags": [
+    "媒体快讯",
+    "限时"
+   ],
+   "value": 2,
+   "hot": false,
+   "url": "https://www.aipromonow.com/promos/lightvela-new-user-free-month-launch-ai-4500-credits?utm_source=rss&amp;utm_medium=referral&amp;utm_campaign=deal_updates",
+   "home": "https://www.aipromonow.com",
+   "note": "📰 实时媒体快讯（aipromonow），厂商待识别，以官方为准",
+   "src": "media",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "ap-todayai新用户注册送1亿tokens再加一个月pro",
+   "vendor": "AI优惠雷达",
+   "name": "Today AI 新用户注册送 1 亿 Tokens 再加一个月 Pro",
+   "cat": "plan",
+   "region": "cn",
+   "isFree": true,
+   "free": "Today AI 新用户注册送 1 亿 Tokens 再加一个月 Pro",
+   "price": "见文章说明",
+   "tags": [
+    "媒体快讯",
+    "限时"
+   ],
+   "value": 2,
+   "hot": false,
+   "url": "https://www.aipromonow.com/promos/today-ai-cn-signup-1e8-tokens-1mo-pro-sep2026?utm_source=rss&amp;utm_medium=referral&amp;utm_campaign=deal_updates",
+   "home": "https://www.aipromonow.com",
+   "note": "📰 实时媒体快讯（aipromonow），厂商待识别，以官方为准",
+   "src": "media",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "ap-腾讯qclaw迁到workbuddy可领1000积分停服前完成迁移",
+   "vendor": "AI优惠雷达",
+   "name": "腾讯 QClaw 迁到 WorkBuddy 可领 1000 积分 停服前完成迁移",
+   "cat": "plan",
+   "region": "cn",
+   "isFree": true,
+   "free": "腾讯 QClaw 迁到 WorkBuddy 可领 1000 积分 停服前完成迁移",
+   "price": "见文章说明",
+   "tags": [
+    "媒体快讯",
+    "限时"
+   ],
+   "value": 2,
+   "hot": false,
+   "url": "https://www.aipromonow.com/promos/workbuddy-qclaw-migration-1000-credits-dec2026?utm_source=rss&amp;utm_medium=referral&amp;utm_campaign=deal_updates",
+   "home": "https://www.aipromonow.com",
+   "note": "📰 实时媒体快讯（aipromonow），厂商待识别，以官方为准",
+   "src": "media",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "ap-opencodespacebunnyfree限时免费zen和go都能用且不消耗额",
+   "vendor": "AI优惠雷达",
+   "name": "OpenCode Space Bunny Free 限时免费 Zen 和 Go 都能用且不消耗额",
+   "cat": "plan",
+   "region": "cn",
+   "isFree": true,
+   "free": "OpenCode Space Bunny Free 限时免费 Zen 和 Go 都能用且不消耗额度",
+   "price": "见文章说明",
+   "tags": [
+    "媒体快讯",
+    "限时"
+   ],
+   "value": 2,
+   "hot": false,
+   "url": "https://www.aipromonow.com/promos/opencode-space-bunny-free-limited-sep2026?utm_source=rss&amp;utm_medium=referral&amp;utm_campaign=deal_updates",
+   "home": "https://www.aipromonow.com",
+   "note": "📰 实时媒体快讯（aipromonow），厂商待识别，以官方为准",
+   "src": "media",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "ap-clinepass首月约us$212官方优惠码进收银台就能享",
+   "vendor": "AI优惠雷达",
+   "name": "Cline Pass 首月约 US$2.12 官方优惠码进收银台就能享",
+   "cat": "plan",
+   "region": "cn",
+   "isFree": false,
+   "free": "Cline Pass 首月约 US$2.12 官方优惠码进收银台就能享",
+   "price": "见文章说明",
+   "tags": [
+    "媒体快讯",
+    "限时"
+   ],
+   "value": 2,
+   "hot": false,
+   "url": "https://www.aipromonow.com/promos/cline-pass-first-month-212-promo-codes-sep2026?utm_source=rss&amp;utm_medium=referral&amp;utm_campaign=deal_updates",
+   "home": "https://www.aipromonow.com",
+   "note": "📰 实时媒体快讯（aipromonow），厂商待识别，以官方为准",
+   "src": "media",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "ap-腾讯设计妙境miora混元hyimage35限时免费生图用到10月7日",
+   "vendor": "AI优惠雷达",
+   "name": "腾讯设计妙境 Miora 混元 Hy Image3.5 限时免费生图用到 10 月 7 日",
+   "cat": "plan",
+   "region": "cn",
+   "isFree": true,
+   "free": "腾讯设计妙境 Miora 混元 Hy Image3.5 限时免费生图用到 10 月 7 日",
+   "price": "见文章说明",
+   "tags": [
+    "媒体快讯",
+    "限时"
+   ],
+   "value": 2,
+   "hot": false,
+   "url": "https://www.aipromonow.com/promos/miora-hunyuan-hy-image35-free-oct7?utm_source=rss&amp;utm_medium=referral&amp;utm_campaign=deal_updates",
+   "home": "https://www.aipromonow.com",
+   "note": "📰 实时媒体快讯（aipromonow），厂商待识别，以官方为准",
+   "src": "media",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "ap-commandcodegrok47六折窗口已结束",
+   "vendor": "AI优惠雷达",
+   "name": "Command Code Grok 4.7 六折窗口已结束",
+   "cat": "plan",
+   "region": "cn",
+   "isFree": false,
+   "free": "Command Code Grok 4.7 六折窗口已结束",
+   "price": "见文章说明",
+   "tags": [
+    "媒体快讯",
+    "限时"
+   ],
+   "value": 2,
+   "hot": false,
+   "url": "https://www.aipromonow.com/promos/command-code-grok-4-7-40off-sep27?utm_source=rss&amp;utm_medium=referral&amp;utm_campaign=deal_updates",
+   "home": "https://www.aipromonow.com",
+   "note": "📰 实时媒体快讯（aipromonow），厂商待识别，以官方为准",
+   "src": "media",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "ap-commandcodemimov26flash额度加码窗口已结束",
+   "vendor": "AI优惠雷达",
+   "name": "Command Code MiMo V2.6 Flash 额度加码窗口已结束",
+   "cat": "plan",
+   "region": "cn",
+   "isFree": false,
+   "free": "Command Code MiMo V2.6 Flash 额度加码窗口已结束",
+   "price": "见文章说明",
+   "tags": [
+    "媒体快讯",
+    "限时"
+   ],
+   "value": 2,
+   "hot": false,
+   "url": "https://www.aipromonow.com/promos/command-code-mimo-v2-6-flash-boosted-credits-sep24?utm_source=rss&amp;utm_medium=referral&amp;utm_campaign=deal_updates",
+   "home": "https://www.aipromonow.com",
+   "note": "📰 实时媒体快讯（aipromonow），厂商待识别，以官方为准",
+   "src": "media",
+   "checked": "2026-09-29(自动·媒体)"
   },
   {
    "id": "claude-code",
    "price": "$20",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "codex",
    "price": "$8",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "cursor",
    "price": "$20",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "kiro",
    "price": "$20",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "opencode",
    "price": "$10",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "commandcode",
    "price": "$1",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "grok-build",
    "price": "$30",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "kimi-coding",
    "price": "$7.23",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "claude-code",
    "price": "$8",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "codex",
    "price": "$20",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "copilot-free",
    "price": "$20",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "cursor",
    "price": "$20",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "grok-build",
    "price": "$3",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "trae",
    "price": "$50",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "commandcode",
    "price": "$20",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "kiro",
    "price": "$19",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "amazon-q",
    "price": "$10",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
   },
   {
    "id": "replit",
    "price": "$20",
-   "checked": "2026-09-27(自动)"
+   "checked": "2026-09-29(自动)"
+  },
+  {
+   "id": "zcode-zai",
+   "promo": "智谱 GLM Coding Plan 夜间 ZCode 免费用 GLM-5.3-Flash 延期到 10 月 7 日",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "glm-coding",
+   "promo": "Verdent 免费档可直接用 GLM-5.3-Flash 与 DeepSeek V4.1 Flash",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "glm-coding",
+   "promo": "智谱 AutoClaw 中秋登录可领合计约 5 亿 GLM-5.3-Flash Token 当天有效",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "claude-code",
+   "promo": "Claude Pro Max Team 五小时额度上调并送可留存重置卡 Opus 5.5 约便宜四成",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "codex",
+   "promo": "OpenAI GPT-6 Sol Luna API 永久半价并给 Plus Pro Business 发重置卡",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "antigravity",
+   "promo": "Google AI Pro Ultra 订阅现含 Colab 高级算力 Pro 每月约 200 计算单元",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "claude-code",
+   "promo": "Claude Pro 送 100 美元云端会话额度 Max 送 250 美元 10 月 7 日前领",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "copilot-free",
+   "promo": "Browser Use 新用户送 15 美元云端额度 Google GitHub 或微软账号可领",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "zcode-zai",
+   "promo": "ZCode 周末再送 GLM-5.3-Flash 约 3 亿 Tokens 用到 9 月 28 日上午",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "glm-coding",
+   "promo": "华为云码道每日领 1000 万 Tokens 可用 DeepSeek V4.1 Flash 与 GLM-5.3-Flas",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "glm-coding",
+   "promo": "智谱清言双节登录积分翻10倍 消耗最高返还15万到10月底",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "claude-code",
+   "promo": "Claude Pro Max 回访用户首月半价 邮件领取用到 10 月 8 日",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "volcark",
+   "promo": "火山方舟 Agent Plan Small 首两月低至 9.9 元 活动用到 11 月 8 日",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "minimax-coding",
+   "promo": "MiniMax Code 每日签到双倍免费积分用到10月7日新老用户都能领",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "shlab-inkstone",
+   "promo": "书生端砚墨点计划测试期每月送免费 Token 三款模型限时不扣墨点",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "zcode-zai",
+   "promo": "ZCode Trust Build 全体用户可领 1 亿 GLM-5.3-Flash Tokens 付费用户另送重置卡到",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "manus-cue",
+   "promo": "Manus 新品 Cue 邀请码 MEETCUE 早期免费体验名额有限先到先得",
+   "checked": "2026-09-29(自动·媒体)"
+  },
+  {
+   "id": "deepseek",
+   "promo": "DeepSeek Harness 桌面版登录可领 6 元赠金活动用到 10 月 6 日",
+   "checked": "2026-09-29(自动·媒体)"
   }
  ]
 }

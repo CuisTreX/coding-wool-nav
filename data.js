@@ -24,8 +24,9 @@ window.WOOL_DATA = [
     value: 5, hot: true,
     url: 'https://www.bigmodel.cn/glm-coding',
     home: 'https://open.bigmodel.cn',
-    note: '邀请码可享 95 折；仅支持 GLM 系模型',
-    checked: '2026-09-27'
+    note: '📰 媒体交叉：凤凰科技/IT之家/新浪财经均报道夜间免费，活动多次延期（9-20→10-07）；邀请码可享 95 折，仅支持 GLM 系模型',
+    src: 'media',
+    checked: '2026-09-29'
   },
   {
     id: 'commandcode', vendor: 'Command Code', name: 'Command Code', cat: 'plan', region: 'intl',
@@ -36,8 +37,9 @@ window.WOOL_DATA = [
     tags: ['X热荐', '10倍杠杆', '免费模型路由', 'BYOK'],
     value: 5, hot: true,
     url: 'https://commandcode.ai',
-    note: '社区评价比中转站靠谱；额度结转不失效（加量包）',
-    checked: '2026-09-27'
+    note: '📰 双源交叉：X 博主实测 + cp.pingfan.me 收录；社区评价比中转站靠谱；额度结转不失效（加量包）',
+    src: 'media',
+    checked: '2026-09-29'
   },
   {
     id: 'codex', vendor: 'OpenAI', name: 'Codex', cat: 'plan', region: 'intl',
@@ -73,13 +75,16 @@ window.WOOL_DATA = [
   },
   {
     id: 'claude-code', vendor: 'Anthropic', name: 'Claude Code', cat: 'plan', region: 'intl',
-    isFree: false,
-    free: '无免费层，需订阅后使用；Claude 网页免费层不含 Claude Code',
-    price: 'Pro $20/月 · Max $100/$200',
-    tags: ['需订阅'],
-    value: 2,
+    isFree: true,
+    free: 'Pro/Max 回访老用户首月 5 折（邮件定向领取，次月恢复原价）；Pro/Max 均含 Claude Code 使用权',
+    price: 'Pro $20/月 · Max $100/$200（回访首月半价）',
+    promo: '📰 回访老用户首月 5 折，至 2026-10-08',
+    tags: ['回访5折', '邮件定向', '国庆档'],
+    value: 3,
     url: 'https://claude.com/product/claude-code',
-    checked: '2026-09-27'
+    note: '📰 媒体源：aipromonow 情报；定向邮件活动，没收到邮件的账号不适用；已确认无国庆专属 Claude Code 促销',
+    src: 'media',
+    checked: '2026-09-29'
   },
   {
     id: 'grok-build', vendor: 'xAI', name: 'Grok Build', cat: 'plan', region: 'intl',
@@ -246,12 +251,80 @@ window.WOOL_DATA = [
   {
     id: 'zcode-zai', vendor: '智谱 AI', name: 'ZCode 桌面 Agent', cat: 'ide', region: 'cn',
     isFree: true,
-    free: '新用户 5 天试用；GLM Coding Plan 用户配合夜间活动可 0 成本重度使用',
-    price: '随 GLM Coding Plan',
-    tags: ['5天试用', '配合夜间活动'],
-    value: 3,
+    free: 'Trust Build 活动：全体用户可领 1 亿 GLM-5.3-Flash Tokens，付费用户另送重置卡；杭州全城 Coding 计划：登录享限时 1.5 倍额度（按 67% 扣减，可叠非高峰 5 折）；新用户领 1 亿 Token 体验',
+    price: '随 GLM Coding Plan（Lite 约 ¥118/月）',
+    promo: '全体领 1 亿 Token + 重置卡，至 2026-10-07',
+    tags: ['国庆档', '1亿Token', '1.5倍额度', '媒体交叉'],
+    value: 5, hot: true,
     url: 'https://zcode.z.ai',
-    checked: '2026-07'
+    home: 'https://docs.bigmodel.cn',
+    note: '📰 双源交叉：官方 docs.bigmodel.cn（杭州全城 Coding）+ 媒体 aipromonow/凤凰/IT之家；ZCode 3.0 的「每日 300 万 Token」为联合促销，非永久非人人可领',
+    src: 'media',
+    checked: '2026-09-29'
+  },
+  {
+    id: 'deepseek-harness', vendor: '深度求索', name: 'DeepSeek Harness 桌面版', cat: 'cli', region: 'cn',
+    isFree: true,
+    free: '桌面版登录即可领 6 元赠金',
+    price: '按量 · 赠金抵扣',
+    promo: '登录领 6 元赠金，至 2026-10-06',
+    tags: ['赠金', '限时'],
+    value: 3,
+    url: 'https://www.deepseek.com/',
+    note: '📰 媒体源：aipromonow 情报，未上官网核对',
+    src: 'media',
+    checked: '2026-09-29(媒体)'
+  },
+  {
+    id: 'minimax-checkin', vendor: 'MiniMax', name: 'MiniMax Code 每日签到', cat: 'plan', region: 'cn',
+    isFree: true,
+    free: '每日签到领免费积分，活动期间双倍',
+    price: '签到免费',
+    promo: '签到双倍积分，至 2026-10-07',
+    tags: ['每日签到', '双倍积分'],
+    value: 4,
+    url: 'https://platform.minimaxi.com/',
+    note: '📰 媒体源：aipromonow 情报，新老用户均可领',
+    src: 'media',
+    checked: '2026-09-29(媒体)'
+  },
+  {
+    id: 'volc-ark-agent', vendor: '火山引擎', name: '方舟 Agent Plan Small', cat: 'plan', region: 'cn',
+    isFree: false,
+    free: '订阅制 Agent 套餐，首两月特价',
+    price: '首两月 ¥9.9/月，后恢复原价',
+    promo: '首两月 9.9 元，至 2026-11-08',
+    tags: ['低价入门', '限时特价'],
+    value: 3,
+    url: 'https://www.volcengine.com/product/ark',
+    note: '📰 媒体源：aipromonow 情报',
+    src: 'media',
+    checked: '2026-09-29(媒体)'
+  },
+  {
+    id: 'shlab-inkstone', vendor: '上海AI实验室', name: '书生·端砚 墨点计划', cat: 'api', region: 'cn',
+    isFree: true,
+    free: '测试期每月送免费 Token，三款模型限时不扣墨点',
+    price: '测试期免费',
+    tags: ['每月免费Token', '测试期'],
+    value: 3,
+    url: 'https://cloud.sensecore.cn/',
+    note: '📰 媒体源：aipromonow 情报，入口以书生官网为准',
+    src: 'media',
+    checked: '2026-09-29(媒体)'
+  },
+  {
+    id: 'manus-cue', vendor: 'Manus', name: 'Manus Cue', cat: 'builder', region: 'intl',
+    isFree: true,
+    free: '新品早期体验，用邀请码 MEETCUE 领免费名额（先到先得）',
+    price: '邀请码免费体验',
+    promo: '邀请码 MEETCUE',
+    tags: ['邀请码', '新品体验'],
+    value: 3,
+    url: 'https://manus.im/',
+    note: '📰 媒体源：aipromonow 情报',
+    src: 'media',
+    checked: '2026-09-29(媒体)'
   },
   {
     id: 'codegeex', vendor: '智谱 AI', name: 'CodeGeeX', cat: 'ide', region: 'cn',
@@ -353,12 +426,15 @@ window.WOOL_DATA = [
   {
     id: 'opencode', vendor: 'OpenCode', name: 'OpenCode', cat: 'cli', region: 'intl',
     isFree: true,
-    free: '开源 CLI 完全免费 BYOK；Zen 平台 6 款模型限免，Union Alpha 隐蔽模型各平台限免',
+    free: '开源 CLI 完全免费 BYOK；Zen 平台 6 款模型限免，Union Alpha 隐蔽模型各平台限免；美团 LongCat 2.5 Preview 限时两周免费（Go 订阅可选且不耗额度）',
     price: 'Zen Go $10/月',
+    promo: '📰 LongCat 2.5 限时两周免费，约至 2026-10-10',
     tags: ['开源', 'BYOK', '免费模型'],
     value: 4,
     url: 'https://opencode.ai/',
-    checked: '2026-09-27'
+    note: '📰 活动信息来自 aipromonow 媒体情报',
+    src: 'media',
+    checked: '2026-09-29'
   },
   {
     id: 'rovo-dev', vendor: 'Atlassian', name: 'Rovo Dev', cat: 'cli', region: 'intl',
@@ -580,6 +656,18 @@ window.WOOL_DATA = [
     checked: '2026-09-27'
   },
   {
+    id: 'meituan-longcat', vendor: '美团', name: 'LongCat API', cat: 'api', region: 'cn',
+    isFree: true,
+    free: 'LongCat-2.5-Preview 上线：实名认证约送 500 万 tokens，邀请好友双方各再得约 1000 万',
+    price: '免费额度 + 按量',
+    tags: ['注册送额度', '邀请翻倍', '新入场'],
+    value: 4,
+    url: 'https://longcat.ai/',
+    note: '📰 媒体源：aipromonow 情报（未写明截止），入口以美团 LongCat 官网为准',
+    src: 'media',
+    checked: '2026-09-29(媒体)'
+  },
+  {
     id: 'bigmodel-api', vendor: '智谱 AI', name: 'BigModel 开放平台', cat: 'api', region: 'cn',
     isFree: true,
     free: '注册送 GLM 系列体验 tokens，含 Flash 免费模型',
@@ -730,6 +818,19 @@ window.WOOL_DATA = [
     value: 3,
     url: 'https://cloud.sambanova.ai/',
     checked: '2026-09'
+  },
+  {
+    id: 'gmi-cloud', vendor: 'GMI Cloud', name: '混元 Hy Image 3.5 试用', cat: 'api', region: 'intl',
+    isFree: true,
+    free: '混元 Hy Image 3.5 Preview 免费一周（Playground / MCP / API）',
+    price: '限时免费',
+    promo: '免费一周，至 2026-10-01（只剩两天）',
+    tags: ['限时免费', '即将截止'],
+    value: 2,
+    url: 'https://www.gmicloud.ai/',
+    note: '📰 媒体源：aipromonow 情报',
+    src: 'media',
+    checked: '2026-09-29(媒体)'
   },
   {
     id: 'nvidia-nim', vendor: 'NVIDIA', name: 'NIM / build.nvidia.com', cat: 'api', region: 'intl',

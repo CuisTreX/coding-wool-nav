@@ -26,7 +26,31 @@ import urllib.request
 ROOT = pathlib.Path(__file__).parent
 README_URL = "https://raw.githubusercontent.com/ohong/awesome-coding-ai/main/README.md"
 PINGFAN_URL = "https://cp.pingfan.me"
+AIPRO_URL = "https://www.aipromonow.com/rss.xml"
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) wool-nav-updater"}
+
+# 媒体快讯 → 内置条目 id（把最新活动写进对应卡片的限时高亮条）
+VENDOR_PATCH = [
+    (re.compile(r"ZCode", re.I), "zcode-zai"),
+    (re.compile(r"GLM|智谱", re.I), "glm-coding"),
+    (re.compile(r"DeepSeek|深度求索", re.I), "deepseek"),
+    (re.compile(r"MiniMax", re.I), "minimax-coding"),
+    (re.compile(r"火山|方舟|豆包", re.I), "volcark"),
+    (re.compile(r"书生|端砚|墨点", re.I), "shlab-inkstone"),
+    (re.compile(r"Manus|Cue", re.I), "manus-cue"),
+    (re.compile(r"Kimi|月之暗面", re.I), "kimi-coding"),
+    (re.compile(r"Qwen|通义|千问", re.I), "qwen-code"),
+    (re.compile(r"CodeBuddy", re.I), "codebuddy"),
+    (re.compile(r"Comate|文心快码", re.I), "comate"),
+    (re.compile(r"Claude|Anthropic", re.I), "claude-code"),
+    (re.compile(r"Codex|OpenAI|ChatGPT", re.I), "codex"),
+    (re.compile(r"Copilot|GitHub", re.I), "copilot-free"),
+    (re.compile(r"Cursor", re.I), "cursor"),
+    (re.compile(r"Windsurf", re.I), "windsurf"),
+    (re.compile(r"Trae", re.I), "trae"),
+    (re.compile(r"OpenRouter", re.I), "openrouter"),
+    (re.compile(r"Gemini|Antigravity|Google", re.I), "antigravity"),
+]
 
 TAG2CAT = {"ide": "ide", "gui": "ide", "extension": "ide", "cli": "cli",
            "background": "cli", "app-builder": "builder", "oss": "cli",
@@ -154,6 +178,41 @@ def parse_pingfan():
     return uniq
 
 
+# ---------- 源 3：aipromonow 媒体促销情报（RSS） ----------
+def parse_aipromonow():
+    xml = fetch(AIPRO_URL)
+    today = datetime.date.today().isoformat()
+    patches, fresh = [], []
+    for block in re.findall(r"<item[\s\S]*?</item>", xml):
+        tm = re.search(r"<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?</title>", block)
+        lm = re.search(r"<link>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?</link>", block)
+        if not tm or not lm:
+            continue
+        title = re.sub(r"\s+", " ", tm.group(1)).strip()
+        link = lm.group(1).strip()
+        if not title:
+            continue
+        bid = next((b for pat, b in VENDOR_PATCH if pat.search(title)), None)
+        if bid:
+            # 已收录厂商：最新活动写进对应卡片的限时高亮条
+            patches.append({"id": bid, "promo": title[:60], "checked": today + "(自动·媒体)"})
+        else:
+            fresh.append({
+                "id": "ap-" + norm(title)[:40],
+                "vendor": "AI优惠雷达", "name": title[:48],
+                "cat": "plan", "region": "cn",
+                "isFree": bool(re.search(r"免费|token|赠金|送|领|试用|free|credit", title, re.I)),
+                "free": title, "price": "见文章说明",
+                "tags": ["媒体快讯", "限时"], "value": 2, "hot": False,
+                "url": link, "home": "https://www.aipromonow.com",
+                "note": "📰 实时媒体快讯（aipromonow），厂商待识别，以官方为准",
+                "src": "media", "checked": today + "(自动·媒体)",
+            })
+    # RSS 最新在前：倒序让最新一条最后落笔覆盖旧活动
+    patches.reverse()
+    return {"items": len(re.findall(r"<item[\s\S]*?</item>", xml)), "patches": patches, "fresh": fresh}
+
+
 # ---------- 主流程 ----------
 def main():
     try:
@@ -220,10 +279,26 @@ def main():
     except Exception as e:
         log(f"[2/2] cp.pingfan.me 抓取失败：{e}")
 
+    # 源 3
+    try:
+        ap = parse_aipromonow()
+        have = {norm(r["name"]) for r in remote}
+        added_ap = 0
+        for f in ap["fresh"]:
+            if norm(f["name"]) not in have:
+                remote.append(f)
+                have.add(norm(f["name"]))
+                added_ap += 1
+        patches.extend(ap["patches"])
+        log(f"[3/3] aipromonow 媒体情报：快讯 {ap['items']} 条，活动补丁 {len(ap['patches'])} 条，"
+            f"新增快讯条目 {added_ap} 条")
+    except Exception as e:
+        log(f"[3/3] aipromonow 抓取失败：{e}")
+
     remote.sort(key=lambda x: -x.get("value", 3))
     meta = {
         "generated": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "sources": ["awesome-coding-ai README", "cp.pingfan.me"],
+        "sources": ["awesome-coding-ai README", "cp.pingfan.me", "aipromonow RSS"],
         "newEntries": len(remote),
         "patches": len(patches),
     }
